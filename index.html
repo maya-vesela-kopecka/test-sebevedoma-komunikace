@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sebevědomá komunikace</title>
+  <link rel="stylesheet" href="site.css">
+  <style>
+    :root {
+      --bg: #f8f6f3;
+      --card: #fff;
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --accent: #2563a8;
+      --border: #e5e2de;
+      --radius: 12px;
+      --font: 'Segoe UI', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+    .container { max-width: 560px; margin: 0 auto; }
+    h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 0.5rem; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+      border: 2px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(37,99,168,.15); }
+    .card strong { display: block; margin-bottom: 0.35rem; }
+    .card p { margin: 0; font-size: 0.9rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="ai-notice" role="note">
+      <strong>Upozornění:</strong> Tento test byl vytvořen ve spolupráci s AI.
+    </div>
+    <h1>Sebevědomá komunikace</h1>
+    <p class="subtitle">Vyberte si test znalostí nebo role-play pro trénink reakcí.</p>
+
+    <a href="test-sebevedoma-komunikace.html" class="card">
+      <strong>Test – ověření znalostí</strong>
+      <p>Kvíz s výběrem odpovědí a výzvami k akci. Vhodné pro zopakování microsérie.</p>
+    </a>
+
+    <a href="roleplay-free.html" class="card">
+      <strong>Role-play – vlastní odpovědi</strong>
+      <p>Napište vlastní reakci v dané situaci a dostanete vyhodnocení a zpětnou vazbu.</p>
+    </a>
+
+    <a href="roleplay.html" class="card">
+      <strong>Role-play – výběr z možností</strong>
+      <p>Vyberte jednu ze tří připravených reakcí a přečtěte si k ní zpětnou vazbu.</p>
+    </a>
+  </div>
+</body>
+</html>

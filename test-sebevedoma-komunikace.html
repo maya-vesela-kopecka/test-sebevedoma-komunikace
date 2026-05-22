@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test – Sebevědomá komunikace</title>
+  <link rel="stylesheet" href="site.css">
+  <style>
+    :root {
+      --bg: #f8f6f3;
+      --card: #fff;
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --correct: #0d6b2e;
+      --wrong: #b91c1c;
+      --accent: #2563a8;
+      --accent-soft: #eaf2fb;
+      --border: #e5e2de;
+      --radius: 12px;
+      --font: 'Segoe UI', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      color: var(--text);
+    }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+      border: 1px solid var(--border);
+    }
+    .question-title { font-weight: 600; margin-bottom: 1rem; }
+    .options { display: flex; flex-direction: column; gap: 0.5rem; }
+    label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    label:hover { border-color: var(--accent); background: #f0f7ff; }
+    input[type="radio"] { margin-top: 0.2rem; flex-shrink: 0; }
+    .option-text { flex: 1; }
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+    .feedback.correct { background: #dcfce7; color: var(--correct); border: 1px solid #86efac; }
+    .feedback.wrong { background: #fee2e2; color: var(--wrong); border: 1px solid #fca5a5; }
+    .correct-answer { margin-top: 0.5rem; font-weight: 600; color: var(--correct); }
+    .feedback-explain {
+      margin-top: 0.75rem;
+      font-weight: 400;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #fff;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .feedback-explain strong { color: inherit; }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .btn:hover { filter: brightness(1.05); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .score-card {
+      text-align: center;
+      padding: 2rem;
+    }
+    .score-number { font-size: 2.5rem; font-weight: 700; color: var(--accent); }
+    .score-label { color: var(--muted); margin-top: 0.25rem; }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent);
+    }
+    .challenge-card {
+      border-left: 4px solid var(--accent);
+    }
+    .challenge-card p { margin: 0.5rem 0; }
+    .challenge-options { margin-top: 1rem; }
+    .hidden { display: none !important; }
+    .recommend-card {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+    }
+    .recommend-card h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+    .recommend-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .recommend-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(37,99,168,.15);
+    }
+    .recommend-list li:last-child { border-bottom: none; }
+    .recommend-list .mk-title { font-weight: 600; color: var(--text); }
+    .recommend-list .mk-focus { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
+    .question-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: #f0f0ee;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      font-weight: 500;
+    }
+    .linked-microkurzy {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .linked-microkurzy strong { color: var(--text); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="ai-notice" role="note">
+      <strong>Upozornění:</strong> Tento test byl vytvořen ve spolupráci s AI.
+    </div>
+    <p style="margin-bottom: 1rem;"><a href="index.html" style="color: var(--accent); font-size: 0.9rem;">← Zpět na hlavní stránu</a></p>
+    <h1>Test k microsérii Sebevědomá komunikace</h1>
+    <p class="subtitle">Rozšířený test – ověření znalostí ze všech 11 microkurzů</p>
+
+    <div id="part1">
+      <div id="questions-container"></div>
+      <div id="next-wrap" class="hidden">
+        <button type="button" class="btn" id="btn-next">Další otázka</button>
+      </div>
+      <div id="score-wrap" class="card score-card hidden">
+        <div class="score-number" id="score-text">0 / 0</div>
+        <div class="score-label">správných odpovědí</div>
+      </div>
+      <div id="recommend-wrap" class="card recommend-card hidden">
+        <h3 id="recommend-title">Co si pustit znovu</h3>
+        <ul class="recommend-list" id="recommend-list"></ul>
+      </div>
+      <div id="continue-wrap" class="hidden" style="text-align: center;">
+        <button type="button" class="btn" id="btn-to-challenges">Pokračovat na Výzvy k akci</button>
+      </div>
+    </div>
+
+    <div id="part2" class="hidden">
+      <h2 class="section-title">Výzvy k akci</h2>
+      <p class="subtitle">Není zde správná nebo špatná odpověď. U každé výzvy si vyberte, co začnete dělat. Po výběru u všech výzev se objeví tlačítko Dokončit test.</p>
+      <div id="challenges-container"></div>
+      <div id="finish-wrap" class="hidden" style="margin-top: 1.5rem;">
+        <button type="button" class="btn" id="btn-finish">Dokončit test</button>
+      </div>
+    </div>
+
+    <div id="part3" class="hidden">
+      <h2 class="section-title">Vaše vybrané kroky</h2>
+      <div id="summary-container" class="card"></div>
+      <p class="card" style="margin-top: 1rem; font-size: 1.1rem;">
+        <strong>Skvělé.</strong> Máte jasno, jaké budou vaše první kroky k sebevědomé komunikaci. Pusťte se do toho.
+      </p>
+    </div>
+
+    <div id="part4" class="hidden">
+      <div class="typeform-card">
+        <h2>Jak se vám cvičení líbilo?</h2>
+        <p>Krátký dotazník (cca 1 minuta) — pomůže nám zjistit, zda podobná cvičení chcete i na Seduu.</p>
+        <a class="btn-typeform" href="https://lmc4.typeform.com/to/emV4D50T"
+           target="_blank" rel="noopener noreferrer">
+          Vyplnit zpětnou vazbu
+        </a>
+        <p class="typeform-note">Otevře se v novém okně (Typeform).</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mapa microkurzů — focus věta je to, co si má student z microkurzu odnést
+    const MICROKURZ = {
+      1:  { title: 'M1 Asertivita',       focus: 'Tři kroky: popis situace → co to s vámi dělá → návrh řešení.' },
+      2:  { title: 'M2 Gramofon',         focus: 'Klidně opakovat stanovisko bez výmluv — ty otvírají prostor k vyjednávání.' },
+      3:  { title: 'M3 Otevřené dveře',   focus: 'Souhlasit s částí sdělení, ale držet vlastní rozhodnutí.' },
+      4:  { title: 'M4 Emoce',            focus: 'Rozpoznat spouštěč (red flag), říct si o pauzu, dýchat.' },
+      5:  { title: 'M5 Žádost',           focus: 'Konkrétní žádost, ne tichá naděje. Žádost dává prostor i pro ne.' },
+      6:  { title: 'M6 Odmítnutí',        focus: 'Krátké jasné ne bez omluvy za rozhodnutí.' },
+      7:  { title: 'M7 Feedback',         focus: 'Popis chování + já-sdělení + návrh, ne nálepka osoby.' },
+      8:  { title: 'M8 Mindset',          focus: 'Asertivita stojí na rovnosti a asertivních právech.' },
+      9:  { title: 'M9 Výčitky',          focus: 'Pojmenovat pasivní agresivitu klidně, nepřijímat vinu.' },
+      10: { title: 'M10 Zůstat u sebe',   focus: 'Empatie k emoci druhého + držení vlastního rozhodnutí.' },
+      11: { title: 'M11 Techniky',        focus: 'Asertivita je střed mezi pasivitou a agresí.' }
+    };
+
+    // Banka 25 otázek — každá otázka má primární microkurz, vysvětlení správné odpovědi a hint při chybě
+    const QUESTION_BANK = [
+      // ===== M1 Asertivita =====
+      {
+        id: 1, microkurz: 1,
+        question: 'Jaké jsou tři kroky asertivní komunikace?',
+        options: [
+          'Popis situace – vyjádřit otevřeně emoce – formulovat výčitku',
+          'Popis situace – co to s vámi dělá – návrh řešení',
+          'Já-výrok – kritika druhé strany – shrnutí co mi vadilo'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Tři kroky asertivity: popis situace věcně → já-sdělení (co to s vámi dělá) → konkrétní návrh řešení.',
+        whyWrongHint: 'Asertivní struktura nemá výčitku ani kritiku osoby. Vždy je tam popis situace, dopad na vás a návrh dalšího kroku.'
+      },
+      {
+        id: 3, microkurz: 1,
+        question: 'Jak byste asertivně zareagovali, když vám kolega pošle opakovaně úkol na poslední chvíli?',
+        options: [
+          '„Když mi úkol přijde tak pozdě, nestihnu ho dnes udělat. Můžeš mi ho poslat o den dřív?"',
+          '„Tohle mi práci dost zkomplikuje. Takto to opravdu nejde."',
+          '„Když to chodí takhle pozdě, je to pro mě náročné. Takhle se nedá vůbec pracovat."'
+        ],
+        correctIndex: 0,
+        whyCorrect: 'Popisujete dopad a navrhujete konkrétní změnu (poslat dříve). Žádná nálepka, žádné obviňování.',
+        whyWrongHint: 'Druhé varianty zůstávají u kritiky bez návrhu, jak věci napravit. Asertivita = situace + dopad + návrh.'
+      },
+
+      // ===== M2 Gramofon =====
+      {
+        id: 13, microkurz: 2,
+        question: 'Kolega vás potřetí tlačí: „No tak fajn, příště ti to oplatím, jen dneska zůstaň." Která reakce nejlíp drží asertivní hranici?',
+        options: [
+          '„Vím, že je to pro tebe důležité, ale dneska opravdu zůstat nemůžu."',
+          '„Tak fajn, ale jen na hodinku, jo?"',
+          '„Nemůžu, hlídám děti a slíbil jsem ženě, že přijdu včas, opravdu to nepůjde."'
+        ],
+        correctIndex: 0,
+        whyCorrect: 'Technika poškrábané gramofonové desky: klidně opakujete stanovisko, nepřesvědčujete, neomlouváte se.',
+        whyWrongHint: 'Buď jste ustoupil/a (B), nebo otevřel/a dveře k vyjednávání výmluvou (C, „tak si zavolej babičku"). Krátké „dnes to nejde" nemá kam pokračovat.'
+      },
+      {
+        id: 14, microkurz: 2,
+        question: 'Proč je při opakovaném tlaku lepší říct „dnes to nejde" než „nemůžu, hlídám děti"?',
+        options: [
+          'Krátkou odpověď druhá strana obvykle nepochopí, a tak ji opakujeme.',
+          'Výmluva otvírá prostor pro vyjednávání („tak si zavolej babičku"). Krátké stanovisko nemá kam pokračovat.',
+          'Žádný rozdíl, obojí říká totéž jiným způsobem.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Technika gramofonu = stručný klidný postoj bez návnad k vyjednávání.',
+        whyWrongHint: 'Výmluvy umožňují druhému najít protinávrh. Krátké „nejde to" je síla, ne neslušnost.'
+      },
+
+      // ===== M3 Otevřené dveře =====
+      {
+        id: 15, microkurz: 3,
+        question: 'Kamarádka říká: „Dřív jsi byla ochotnější." Která reakce je technikou otevřených dveří?',
+        options: [
+          '„Není to pravda, vždycky ti pomáhám!"',
+          '„Možná máš pravdu, dřív jsem pomáhala víc. Dneska to ale opravdu nevezmu."',
+          '„Když ti to nevyhovuje, tak si poraď sama."'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Otevřené dveře = souhlasím s částí sdělení, ale rozhodnutí zůstává moje. Nebojuju, neustupuji.',
+        whyWrongHint: '(A) je obrana, (C) protiútok. Místo toho „dveře pootevřít" — uznat část a držet rozhodnutí.'
+      },
+      {
+        id: 16, microkurz: 3,
+        question: 'K čemu slouží technika otevřených dveří?',
+        options: [
+          'Vyhnout se konfliktu tím, že druhému dáme zapravdu a změníme rozhodnutí.',
+          'Slyšet druhého a souhlasit s částí jeho sdělení, ale zůstat u vlastního rozhodnutí.',
+          'Vrátit narážku ironií, aby pochopil, co dělá špatně.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Princip „slyším tě, rozumím, ale moje rozhodnutí zůstává stejné" — neútočím, ani neotevírám bránu manipulaci.',
+        whyWrongHint: 'Technika není o ústupu (A) ani o útoku (C). Je o uznání části + držení rozhodnutí.'
+      },
+
+      // ===== M4 Emoce =====
+      {
+        id: 17, microkurz: 4,
+        question: 'Co jsou v asertivní komunikaci „red flags" (červené hadry)?',
+        options: [
+          'Pravidla, podle kterých rozeznáme manipulaci.',
+          'Vlastní spouštěče — slova nebo situace, které nás spolehlivě vytočí. Jakmile je známe, můžeme se připravit.',
+          'Varovné signály, že druhá strana lže.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Red flags = vlastní spouštěče. Když je znáte, máte šanci je zahlédnout dřív, než vás převálcují.',
+        whyWrongHint: 'Red flags jsou vaše vlastní spouštěče, ne signály na druhé straně. Jakmile je rozpoznáte, můžete se připravit.'
+      },
+      {
+        id: 18, microkurz: 4,
+        question: 'Cítíte, jak ve vás roste vztek po spouštěcí větě kolegy. Jaký je nejlepší první asertivní krok?',
+        options: [
+          'Rovnou mu řeknete, co si o tom myslíte, dokud máte odvahu.',
+          'Řeknete si o čas: „Potřebuju chvíli, ozvu se ti."',
+          'Mlčíte a v sobě to dusíte, aby nedošlo k hádce.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Pauza není slabost, je to mistrovský tah — vědomá volba nenechat se unést emocí. Dech + chvíle navíc.',
+        whyWrongHint: '(A) je vybouchnutí, (C) potlačení. Asertivita má vědomou pauzu — „potřebuju chvíli, ozvu se ti".'
+      },
+
+      // ===== M5 Žádost =====
+      {
+        id: 10, microkurz: 5,
+        question: 'Co je základní rozdíl mezi asertivní žádostí a nátlakem?',
+        options: [
+          'Asertivní žádost dává druhému možnost říct i ne.',
+          'Asertivní žádost je vždy delší.',
+          'Asertivní žádost musí znít formálně.'
+        ],
+        correctIndex: 0,
+        whyCorrect: 'Žádost dává druhému prostor říct ano i ne. Odmítnutí neznamená, že jste žádali špatně.',
+        whyWrongHint: 'Délka ani formálnost o tom nerozhodují — rozhodující je svoboda druhého odmítnout. Nátlak tu svobodu odebírá.'
+      },
+      {
+        id: 11, microkurz: 5,
+        question: 'Co je typické pro asertivní žádost?',
+        options: [
+          'Necháte termín úplně otevřený.',
+          'Navrhnete konkrétní čas nebo způsob.',
+          'Požádáte druhého, aby se ozval, až bude mít chuť.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Konkrétní čas/způsob dává druhému možnost reálně reagovat („hodinu zítra odpoledne"), ne tipovat.',
+        whyWrongHint: 'Otevřené „kdykoliv" nebo „až budeš chtít" obvykle skončí bez odpovědi. Konkrétní návrh je asertivní.'
+      },
+      {
+        id: 12, microkurz: 5,
+        question: 'Představte si, že potřebujete pomoc s přípravou prezentace. Jak to asertivně řeknete?',
+        options: [
+          '„Hele, nějak to teď vůbec nestíhám a doufám, že si toho všimneš… a pomůžeš."',
+          '„Potřebuju pomoct s prezentací, jsem teď časově přetížený. Měl bys zítra čas to se mnou projít?"',
+          '„No, já úplně nevím, jak to říct… asi bych potřeboval pomoct, ale nechci tě tím zdržovat."'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Konkrétní potřeba + důvod + návrh času. Druhý ví, o co jde a jak může pomoct.',
+        whyWrongHint: 'Naděje na uhodnutí (A) nebo nejistota (C) nedávají druhému, na co reagovat. Asertivní žádost je konkrétní.'
+      },
+
+      // ===== M6 Odmítnutí =====
+      {
+        id: 4, microkurz: 6,
+        question: 'Co je cílem asertivního „NE"?',
+        options: [
+          'Být tvrdý a neústupný, aby druhá strana pochopila, kdo je pánem situace.',
+          'Vyjádření vaší hranice s respektem k druhému, ale i k sobě.',
+          'Odmítnout každou prosbu, která vám nepřináší okamžitý zisk.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Asertivní ne = hranice s respektem k druhému i k sobě. Není tvrdost ani sobectví.',
+        whyWrongHint: 'Asertivní ne není útok ani osobní zisk — je to ochrana priorit s respektem.'
+      },
+      {
+        id: 5, microkurz: 6,
+        question: 'Jak poznáte, že vaše odmítnutí bylo formulováno jasně?',
+        options: [
+          'Vaše věta je srozumitelná a krátká.',
+          'Necháte druhého hádat, jestli můžete nebo nemůžete.',
+          'Ptáte se, zda není ještě jiná možnost.'
+        ],
+        correctIndex: 0,
+        whyCorrect: 'Krátká, srozumitelná věta. Druhý nemusí hádat ani se na nic ptát.',
+        whyWrongHint: 'Hádání nebo otevřené možnosti přesouvají rozhodnutí na druhého. Jasné ne je krátké a srozumitelné.'
+      },
+      {
+        id: 6, microkurz: 6,
+        question: 'Kolega vás zve na akci, na kterou se vám vůbec nechce jít, protože jste unavení. Jak by vypadala asertivní odpověď?',
+        options: [
+          '„Díky, že jsi na mě myslel, ale teď nemůžu/nehodí se mi to."',
+          '„Jé, já bych strašně rád šel, ale víš, bolí mě hlava a musím ještě volat babičce…"',
+          '„Možná se stavím později", i když víte, že nepřijdete.'
+        ],
+        correctIndex: 0,
+        whyCorrect: 'Krátké poděkování + jasné ne, bez výmluv. Hranice jasné, vztah v pohodě.',
+        whyWrongHint: 'Vymýšlení omluv (B) nebo nejasné „možná" (C) ztěžuje druhému plánování i důvěru.'
+      },
+
+      // ===== M7 Feedback =====
+      {
+        id: 2, microkurz: 7,
+        question: 'Jak byste přeformulovali větu „Zase jsi přišel pozdě na schůzku" do asertivního stylu?',
+        options: [
+          '„Když schůzka začne pozdě, dostávám se do skluzu. Potřebuju, abychom začínali včas."',
+          '„Když chodíš pozdě, jsi nezodpovědný a působí to, jako by ti na tom nezáleželo."',
+          '„Tohle opakované zpoždění mi narušuje den, ještě jednou, tak uvidíš."'
+        ],
+        correctIndex: 0,
+        whyCorrect: 'Popisujete chování a dopad („když schůzka začne pozdě, dostávám se do skluzu"), nehodnotíte osobu.',
+        whyWrongHint: '(B) je nálepkování („jsi nezodpovědný"), (C) skrytá hrozba. Asertivní feedback = popis chování + dopad + potřeba.'
+      },
+      {
+        id: 7, microkurz: 7,
+        question: 'Co je principem já-sdělení?',
+        options: [
+          'Každá věta začínající slovem „já".',
+          'Popis toho, co cítím a co potřebuji.',
+          'Rozkaz formulovaný diplomaticky.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Já-sdělení mluví o tom, co cítím a co potřebuji, místo o tom, co druhý dělá špatně.',
+        whyWrongHint: 'Já-sdělení není o slově „já" ani diplomatický rozkaz — je o popisu vlastních pocitů a potřeb.'
+      },
+      {
+        id: 8, microkurz: 7,
+        question: 'Představte si, že kolega něco odevzdal pozdě a vám to zkomplikovalo práci. Co uděláte?',
+        options: [
+          'Řeknete „Ty jsi zase všechno pokazil."',
+          'Popíšete dopad na svou práci a řeknete, co potřebujete příště.',
+          'Mlčky to přejdete.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Popis dopadu na práci + jasná žádost o změnu příště. Asertivní feedback ve třech krocích.',
+        whyWrongHint: 'Útok na osobu (A) ani mlčení (C) nepomáhají. Mluvte o dopadu a o tom, co potřebujete.'
+      },
+      {
+        id: 9, microkurz: 7,
+        question: 'Jak asertivně formulovat situaci, kdy kolega nedodržel termín?',
+        options: [
+          '„Ty jsi nespolehlivý."',
+          '„Když se nedodrží termín, mám potíže s navazující prací."',
+          '„Nevím, proč ti to zase trvalo tak dlouho."'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Popis situace a dopadu, ne nálepka osoby.',
+        whyWrongHint: '„Jsi nespolehlivý" je nálepka, ne popis. Asertivní = popis chování + dopad.'
+      },
+
+      // ===== M8 Mindset =====
+      {
+        id: 19, microkurz: 8,
+        question: 'Které tvrzení odpovídá asertivnímu mindsetu?',
+        options: [
+          '„Když řeknu ne, dělám něco špatně."',
+          '„Mám právo říct ne, aniž bych se cítil/a proviněle. Mám stejnou hodnotu jako druhý."',
+          '„Když jsem podřízený/á, musím vyhovět všemu, co nadřízený řekne."'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Asertivita stojí na rovnosti — já i ty máme stejnou hodnotu. Asertivní práva platí i v práci.',
+        whyWrongHint: 'Asertivita vychází z rovnosti, ne z viny ani z hierarchie. „Mám právo říct ne" je základní asertivní právo.'
+      },
+      {
+        id: 20, microkurz: 8,
+        question: 'Jaký je rozdíl mezi žádostí o laskavost a oprávněným požadavkem v práci?',
+        options: [
+          'Žádný — vždy je nutné vyhovět nadřízenému.',
+          'Žádost o laskavost můžu odmítnout. Oprávněný požadavek (např. výsledek, za který beru plat) odmítnout nemůžu, ale můžu vyjednávat o podmínkách.',
+          'Oprávněný požadavek znamená, že nemám právo nic říct.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Asertivita platí v obou případech: odmítnutí laskavosti je v pořádku, u oprávněného požadavku vyjednávám „jak", ne „jestli".',
+        whyWrongHint: 'I v práci máte právo na slušné jednání a na vyjednání podmínek spolupráce.'
+      },
+
+      // ===== M9 Výčitky =====
+      {
+        id: 21, microkurz: 9,
+        question: 'Kolegyně řekne sarkasticky: „No jasně, někdo má pořád víc času než ostatní." Která reakce je asertivní?',
+        options: [
+          '„Tak já to teda udělám, ať máš klid."',
+          '„Zní to, jako by tě to mrzelo. Je něco, co bys mi chtěla říct napřímo?"',
+          '„Když ti to vadí, tak si to udělej sama."'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Pojmenování pasivní agresivity ji vytahuje na povrch a otevírá přímý dialog.',
+        whyWrongHint: '(A) je kapitulace přijetím viny, (C) vrácení sarkazmu. Asertivita = pojmenovat klidně.'
+      },
+      {
+        id: 22, microkurz: 9,
+        question: 'Jaký je hlavní cíl výčitky nebo pasivní agresivity ve vás vyvolat?',
+        options: [
+          'Zájem a soucit s druhou stranou.',
+          'Pocit viny — když na ni nezareagujete, emocionálně ztratí sílu.',
+          'Jasný plán, jak věci napravit.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Výčitka cílí na pocit viny. Když místo viny zůstanete věcný/á a klidný/á, výčitka padne.',
+        whyWrongHint: 'Cílem výčitky je vyvolat vinu, ne vyřešit věc. Nezapadejte do téhle hry.'
+      },
+
+      // ===== M10 Zůstat u sebe =====
+      {
+        id: 23, microkurz: 10,
+        question: 'Druhá strana reaguje silnou emocí: „Fakt mě zklamáváš!" Co je mistrovství asertivity?',
+        options: [
+          'Změnit rozhodnutí, aby se druhý necítil zklamaně.',
+          '„Rozumím, že tě to mrzí. I přesto to teď nemůžu udělat."',
+          '„Ty ses na mě moc upnul, to si vyřeš sám."'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Empatie + držení rozhodnutí. Přijímáte emoce druhého, ale nemění to vaši hranici.',
+        whyWrongHint: 'Asertivita není ignorování emoce (C) ani kapitulace (A) — je to „slyším tě, ale zůstávám u svého".'
+      },
+      {
+        id: 24, microkurz: 10,
+        question: 'Co znamená „emoce druhých nejsou váš kompas"?',
+        options: [
+          'Mám ignorovat, jak se druhý cítí.',
+          'Nezpochybňuju svoje rozhodnutí jen proto, že se druhému nelíbí. Kompas tvoří moje hodnoty, potřeby a hranice.',
+          'Když se druhý zlobí, znamená to, že dělám něco špatně.'
+        ],
+        correctIndex: 1,
+        whyCorrect: 'Empatii ano, ale rozhodování řídí vaše hodnoty a hranice, ne pocity druhého.',
+        whyWrongHint: 'Emoce druhého neznamenají, že jste v chybě. Empatii ano, ale kompas je u vás.'
+      },
+
+      // ===== M11 Techniky =====
+      {
+        id: 25, microkurz: 11,
+        question: 'Kolega v pátek odpoledne žádá o pomoc s prezentací. Která reakce je asertivní (ne pasivní ani agresivní)?',
+        options: [
+          '„No jo, tak ti teda pomůžu." (i když se vám nechce)',
+          '„Děláš si ze mě srandu? Najdi si někoho jiného, koho budeš otravovat."',
+          '„Chápu, že to chceš mít hotové, ale jsem teď úplně vyčerpaný. Když mi to příště dáš dřív, rád se zapojím."'
+        ],
+        correctIndex: 2,
+        whyCorrect: 'Asertivita = upřímnost + respekt. Neponižujete sebe ani druhého a stojíte si za svým.',
+        whyWrongHint: '(A) je pasivita (překračujete vlastní hranici), (B) agrese (útok). Asertivita je střed: jasné stanovisko s respektem.'
+      }
+    ];
+
+    // Výzvy k akci s propojenými microkurzy
+    const CHALLENGES = [
+      {
+        question: 'Co bude první věc, kterou změníte pro asertivnější komunikaci?',
+        options: [
+          'Začnu při konfliktech vědomě používat já-sdělení a navrhovat konkrétní řešení.',
+          'Popíšu situaci, řeknu, co to se mnou dělá, a jasně vyjádřím svou potřebu.',
+          'Ještě nevím – musím si promyslet, kde asertivitu nejčastěji potřebuji a jak začít.'
+        ],
+        linkedMicrokurzy: [1, 7]
+      },
+      {
+        question: 'Co bude váš první krok k sebevědomějšímu a respektujícímu nastavení hranic?',
+        options: [
+          'Příště zkusím říct NE jasně a srozumitelně, bez zbytečného omlouvání a vysvětlování.',
+          'Začnu své hranice komunikovat dřív a konkrétněji.',
+          'Ještě nevím – potřebuju si ujasnit, kde mám hranice nejslabší a jak je chci vyjadřovat.'
+        ],
+        linkedMicrokurzy: [6, 11]
+      },
+      {
+        question: 'Co jako první změníte, abyste dokázali říkat těžké věci jasně, ale citlivě?',
+        options: [
+          'Příště popíšu problém věcně a konkrétně, místo aby to vyznělo jako osobní kritika.',
+          'Zkusím začít tím, co fungovalo, a teprve potom jasně pojmenuju, co je potřeba upravit.',
+          'Stále zvažuju – potřebuju si ujasnit, jak najít rovnováhu mezi upřímností a ohleduplností.'
+        ],
+        linkedMicrokurzy: [7, 3]
+      },
+      {
+        question: 'Co bude váš další krok k tomu, abyste si uměli jasně a asertivně říct o to, co potřebujete?',
+        options: [
+          'Příště svou potřebu pojmenuju konkrétně a jednoduše.',
+          'Zkusím sdělit potřebu bez omlouvání a bez obav, že tím někoho zatížím — s respektem, ale pevně.',
+          'Ještě nevím – musím si promyslet, v jakých situacích své potřeby nejčastěji nekomunikuju a kde chci začít.'
+        ],
+        linkedMicrokurzy: [5, 8]
+      }
+    ];
+
+    /**
+     * Selection logic — bere 1 otázku z každého microkurzu (zaručí pokrytí všech 11) + 4 náhodné navíc = 15 na session.
+     * Garantuje, že každý student potká alespoň jednou každý microkurz, ale celý test nezabere víc než ~10 minut.
+     */
+    function selectQuestionsForSession() {
+      const byMk = {};
+      QUESTION_BANK.forEach(q => {
+        if (!byMk[q.microkurz]) byMk[q.microkurz] = [];
+        byMk[q.microkurz].push(q);
+      });
+
+      const selected = [];
+      const usedIds = new Set();
+
+      Object.keys(byMk).sort((a, b) => Number(a) - Number(b)).forEach(mkId => {
+        const pool = byMk[mkId];
+        const pick = pool[Math.floor(Math.random() * pool.length)];
+        selected.push(pick);
+        usedIds.add(pick.id);
+      });
+
+      const remaining = QUESTION_BANK.filter(q => !usedIds.has(q.id));
+      const shuffledRemaining = remaining.sort(() => Math.random() - 0.5);
+      const extras = shuffledRemaining.slice(0, 4);
+      selected.push(...extras);
+
+      return selected.sort(() => Math.random() - 0.5);
+    }
+
+    const sessionQuestions = selectQuestionsForSession();
+
+    let currentQ = 0;
+    let correctCount = 0;
+    let answered = false;
+    const wrongByMicrokurz = {}; // { microkurzId: počet chyb }
+
+    const container = document.getElementById('questions-container');
+    const nextWrap = document.getElementById('next-wrap');
+    const scoreWrap = document.getElementById('score-wrap');
+    const recommendWrap = document.getElementById('recommend-wrap');
+    const recommendTitle = document.getElementById('recommend-title');
+    const recommendList = document.getElementById('recommend-list');
+    const continueWrap = document.getElementById('continue-wrap');
+    const btnNext = document.getElementById('btn-next');
+    const btnToChallenges = document.getElementById('btn-to-challenges');
+    const part1 = document.getElementById('part1');
+    const part2 = document.getElementById('part2');
+    const part3 = document.getElementById('part3');
+    const part4 = document.getElementById('part4');
+    const challengesContainer = document.getElementById('challenges-container');
+    const finishWrap = document.getElementById('finish-wrap');
+    const btnFinish = document.getElementById('btn-finish');
+    const summaryContainer = document.getElementById('summary-container');
+
+    const challengeSelections = [];
+
+    function renderQuestion() {
+      answered = false;
+      const q = sessionQuestions[currentQ];
+      const correctOption = q.options[q.correctIndex];
+      const mk = MICROKURZ[q.microkurz];
+
+      container.innerHTML = `
+        <div class="card">
+          <div class="question-title">
+            ${currentQ + 1}. ${q.question}
+            <span class="question-tag">${mk.title}</span>
+          </div>
+          <div class="options" id="options">
+            ${q.options.map((opt, i) => `
+              <label>
+                <input type="radio" name="answer" value="${i}">
+                <span class="option-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div id="feedback" class="hidden"></div>
+        </div>
+      `;
+
+      const options = container.querySelectorAll('input[name="answer"]');
+      const feedbackEl = container.querySelector('#feedback');
+
+      options.forEach(radio => {
+        radio.addEventListener('change', () => {
+          if (answered) return;
+          answered = true;
+          const chosen = parseInt(radio.value, 10);
+          const isCorrect = chosen === q.correctIndex;
+
+          if (isCorrect) {
+            correctCount++;
+          } else {
+            wrongByMicrokurz[q.microkurz] = (wrongByMicrokurz[q.microkurz] || 0) + 1;
+          }
+
+          feedbackEl.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
+          if (isCorrect) {
+            feedbackEl.innerHTML = `
+              ✓ Správně.
+              <div class="feedback-explain"><strong>Proč:</strong> ${q.whyCorrect}</div>
+            `;
+          } else {
+            feedbackEl.innerHTML = `
+              ✗ Špatně. Správná odpověď:
+              <div class="correct-answer">${correctOption}</div>
+              <div class="feedback-explain">
+                <strong>Co si z toho odnést:</strong> ${q.whyWrongHint}<br>
+                <strong>Pusť si znovu:</strong> ${mk.title} — ${mk.focus}
+              </div>
+            `;
+          }
+          feedbackEl.classList.remove('hidden');
+
+          options.forEach(r => { r.disabled = true; });
+          nextWrap.classList.remove('hidden');
+          if (currentQ === sessionQuestions.length - 1) {
+            btnNext.textContent = 'Zobrazit výsledky';
+          }
+        });
+      });
+    }
+
+    /**
+     * Sestaví doporučení podle počtu chyb — top 3 microkurzy k zopakování.
+     * Pokud student měl plný počet, ukáže pozitivní zprávu.
+     */
+    function buildRecommendations() {
+      const entries = Object.entries(wrongByMicrokurz)
+        .map(([mk, count]) => ({ mk: Number(mk), count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 3);
+
+      if (entries.length === 0) {
+        recommendTitle.textContent = 'Skvělé pokrytí všech 11 microkurzů';
+        recommendList.innerHTML = `
+          <li>
+            <span class="mk-title">Pojďme do praxe</span>
+            <span class="mk-focus">Vyzkoušejte si Výzvy k akci níže a zvolte jeden krok, který tento týden uděláte v reálné situaci.</span>
+          </li>
+        `;
+        return;
+      }
+
+      recommendTitle.textContent = 'Co si pustit znovu';
+      recommendList.innerHTML = entries.map(({ mk, count }) => {
+        const info = MICROKURZ[mk];
+        return `
+          <li>
+            <span class="mk-title">${info.title} <span style="color: var(--muted); font-weight: 400;">(${count}× chyba)</span></span>
+            <span class="mk-focus">${info.focus}</span>
+          </li>
+        `;
+      }).join('');
+    }
+
+    btnNext.addEventListener('click', () => {
+      if (currentQ < sessionQuestions.length - 1) {
+        currentQ++;
+        btnNext.textContent = 'Další otázka';
+        nextWrap.classList.add('hidden');
+        renderQuestion();
+      } else {
+        nextWrap.classList.add('hidden');
+        container.classList.add('hidden');
+        document.getElementById('score-text').textContent = `${correctCount} / ${sessionQuestions.length}`;
+        scoreWrap.classList.remove('hidden');
+        buildRecommendations();
+        recommendWrap.classList.remove('hidden');
+        continueWrap.classList.remove('hidden');
+      }
+    });
+
+    function checkAllChallengesSelected() {
+      return CHALLENGES.length > 0 && challengeSelections.length === CHALLENGES.length &&
+        challengeSelections.every(idx => idx !== undefined && idx !== null);
+    }
+
+    function updateFinishButton() {
+      if (checkAllChallengesSelected()) {
+        finishWrap.classList.remove('hidden');
+      } else {
+        finishWrap.classList.add('hidden');
+      }
+    }
+
+    btnToChallenges.addEventListener('click', () => {
+      part1.classList.add('hidden');
+      part2.classList.remove('hidden');
+      challengeSelections.length = 0;
+      CHALLENGES.forEach((c, i) => {
+        challengeSelections[i] = null;
+        const linkedTitles = c.linkedMicrokurzy.map(mk => MICROKURZ[mk].title).join(', ');
+        const card = document.createElement('div');
+        card.className = 'card challenge-card';
+        card.innerHTML = `
+          <div class="question-title">${i + 1}. ${c.question}</div>
+          <div class="challenge-options">
+            ${c.options.map((opt, j) => `
+              <label>
+                <input type="radio" name="challenge-${i}" value="${j}">
+                <span class="option-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+          <p><em>Vyberte si svůj další krok a zkuste ho opravdu udělat.</em></p>
+          <p class="linked-microkurzy"><strong>K této oblasti:</strong> ${linkedTitles}</p>
+        `;
+        challengesContainer.appendChild(card);
+        card.querySelectorAll('input[name="challenge-' + i + '"]').forEach(radio => {
+          radio.addEventListener('change', () => {
+            challengeSelections[i] = parseInt(radio.value, 10);
+            updateFinishButton();
+          });
+        });
+      });
+    });
+
+    btnFinish.addEventListener('click', () => {
+      const list = CHALLENGES.map((c, i) => {
+        const idx = challengeSelections[i];
+        const text = idx !== null && c.options[idx] ? c.options[idx] : '';
+        const linkedTitles = c.linkedMicrokurzy.map(mk => MICROKURZ[mk].title).join(', ');
+        return `
+          <li style="margin-bottom: 1rem;">
+            <strong>${i + 1}. ${c.question}</strong><br>
+            <span style="margin-left: 1em;">${text}</span>
+            <span class="linked-microkurzy" style="margin-left: 1em; display: block;"><strong>Související microkurzy:</strong> ${linkedTitles}</span>
+          </li>
+        `;
+      }).join('');
+      summaryContainer.innerHTML = '<ol style="margin: 0; padding-left: 1.25rem;">' + list + '</ol>';
+      part2.classList.add('hidden');
+      part3.classList.remove('hidden');
+      part4.classList.remove('hidden');
+    });
+
+    renderQuestion();
+  </script>
+</body>
+</html>

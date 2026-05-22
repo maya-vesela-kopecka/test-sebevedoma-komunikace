@@ -1,0 +1,4 @@
+# Netlify – statický web (žádný build)
+[build]
+  publish = "."
+  command = ""

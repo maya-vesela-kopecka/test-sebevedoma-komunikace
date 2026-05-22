@@ -1,0 +1,60 @@
+/* Sdílené styly pro veřejnou verzi (GitHub Pages) */
+
+.ai-notice {
+  background: #f0f4f8;
+  border: 1px solid #c5d4e8;
+  border-left: 4px solid #2563a8;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  line-height: 1.45;
+}
+
+.ai-notice strong {
+  font-weight: 600;
+}
+
+.typeform-card {
+  background: #eaf2fb;
+  border: 1px solid #c5d4e8;
+  border-left: 4px solid #2563a8;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.typeform-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  color: #1a1a1a;
+}
+
+.typeform-card p {
+  margin: 0 0 1rem;
+  color: #5c5c5c;
+  font-size: 0.95rem;
+}
+
+.typeform-card .btn-typeform {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #2563a8;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.typeform-card .btn-typeform:hover {
+  filter: brightness(1.05);
+}
+
+.typeform-card .typeform-note {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #5c5c5c;
+}

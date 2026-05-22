@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Role-play – Sebevědomá komunikace</title>
+  <link rel="stylesheet" href="site.css">
+  <style>
+    :root {
+      --bg: #f8f6f3;
+      --card: #fff;
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --assertive: #0d6b2e;
+      --passive: #b45309;
+      --aggressive: #b91c1c;
+      --accent: #2563a8;
+      --border: #e5e2de;
+      --radius: 12px;
+      --font: 'Segoe UI', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+    h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 0.5rem; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+      border: 1px solid var(--border);
+    }
+    .card-clickable { cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+    .card-clickable:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(37,99,168,.15); }
+    .partner-bubble {
+      background: #e8eef5;
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+    .partner-bubble .who { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.35rem; font-style: normal; }
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.5rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      font-family: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .option-btn:hover { border-color: var(--accent); background: #f0f7ff; }
+    .option-btn .option-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.35rem; }
+    .your-reply {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #f0f4f8;
+      border: 1px solid var(--border);
+    }
+    .your-reply .label { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.35rem; }
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+    .feedback.assertive { background: #dcfce7; color: var(--assertive); border: 1px solid #86efac; }
+    .feedback.passive { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .feedback.aggressive { background: #fee2e2; color: var(--aggressive); border: 1px solid #fca5a5; }
+    .microkurz-hint {
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.9rem;
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .microkurz-hint strong { color: var(--accent); }
+    .scenario-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: #f0f0ee;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      font-weight: 500;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      margin-right: 0.5rem;
+      text-decoration: none;
+    }
+    .btn:hover { filter: brightness(1.05); }
+    .btn-secondary { background: var(--border); color: var(--text); }
+    .hidden { display: none !important; }
+    .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="ai-notice" role="note">
+      <strong>Upozornění:</strong> Tento test byl vytvořen ve spolupráci s AI.
+    </div>
+    <p style="margin-bottom: 1rem;"><a href="index.html" style="color: var(--accent); font-size: 0.9rem;">← Zpět na hlavní stránu</a></p>
+    <h1>Role-play: Sebevědomá komunikace</h1>
+    <p class="subtitle">Vyberte scénář a zkuste zvolit reakci. Zpětná vazba vychází jen z předpřipravených typů (asertivní / pasivní / agresivní).</p>
+
+    <div id="screen-list">
+      <div class="section-title">Vyberte scénář</div>
+      <div id="scenario-cards"></div>
+    </div>
+
+    <div id="screen-intro" class="hidden">
+      <div class="card">
+        <div class="section-title" id="intro-title"></div>
+        <p id="intro-context"></p>
+        <p><strong>Cíl:</strong> <span id="intro-goal"></span></p>
+      </div>
+      <button type="button" class="btn" id="btn-start">Začít</button>
+      <button type="button" class="btn btn-secondary" id="btn-back-list">Zpět na výběr</button>
+    </div>
+
+    <div id="screen-step" class="hidden">
+      <div class="partner-bubble">
+        <div class="who">Kolega</div>
+        <div id="step-partner-line"></div>
+      </div>
+      <div class="section-title">Jak zareagujete?</div>
+      <div id="step-options"></div>
+      <div id="step-result" class="hidden">
+        <div class="your-reply">
+          <div class="label">Vaše odpověď</div>
+          <div id="result-text"></div>
+        </div>
+        <div id="result-feedback" class="feedback"></div>
+        <div id="step-actions">
+          <button type="button" class="btn hidden" id="btn-next-step">Další krok</button>
+          <button type="button" class="btn hidden" id="btn-end-scenario">Konec scénáře</button>
+          <a href="#" class="btn btn-secondary" id="btn-back-after">Vybrat jiný scénář</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const MICROKURZ = {
+      1:  { title: 'M1 Asertivita',       focus: 'Tři kroky: popis situace → co to s vámi dělá → návrh řešení.' },
+      2:  { title: 'M2 Gramofon',         focus: 'Klidně opakovat stanovisko bez výmluv — ty otvírají prostor k vyjednávání.' },
+      3:  { title: 'M3 Otevřené dveře',   focus: 'Souhlasit s částí sdělení, ale držet vlastní rozhodnutí.' },
+      4:  { title: 'M4 Emoce',            focus: 'Rozpoznat spouštěč (red flag), říct si o pauzu, dýchat.' },
+      5:  { title: 'M5 Žádost',           focus: 'Konkrétní žádost, ne tichá naděje. Žádost dává prostor i pro ne.' },
+      6:  { title: 'M6 Odmítnutí',        focus: 'Krátké jasné ne bez omluvy za rozhodnutí.' },
+      7:  { title: 'M7 Feedback',         focus: 'Popis chování + já-sdělení + návrh, ne nálepka osoby.' },
+      8:  { title: 'M8 Mindset',          focus: 'Asertivita stojí na rovnosti a asertivních právech.' },
+      9:  { title: 'M9 Výčitky',          focus: 'Pojmenovat pasivní agresivitu klidně, nepřijímat vinu.' },
+      10: { title: 'M10 Zůstat u sebe',   focus: 'Empatie k emoci druhého + držení vlastního rozhodnutí.' },
+      11: { title: 'M11 Techniky',        focus: 'Asertivita je střed mezi pasivitou a agresí.' }
+    };
+
+    const SCENARIOS_DATA = {
+      "scenarios": [
+        {
+          "id": "ukol-posledni-chvile",
+          "microkurz": 1,
+          "title": "Úkol na poslední chvíli",
+          "context": "Kolega vám právě poslal e-mail s úkolem, který potřebuje mít zítra. Jste v časovém presu a podobné požadavky už několikrát přišly pozdě.",
+          "goal": "Asertivně požádat o dřívější zadávání úkolů, aniž byste druhého obviňovali.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Hele, potřebuju to mít hotový do zítřka, můžeš na tom zapracovat?",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Když mi to přijde tak pozdě, nestihnu to kvalitně do zítřka. Můžeš mi příště posílat úkoly alespoň o den dřív?", "feedback": "Výborně. Popisujete dopad na sebe, žádáte konkrétní změnu a nespadáte do kritiky ani útoku. Druhá strana ví, co má příště udělat." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "No… dobře, zkusím to.", "feedback": "Tím jste nesdělili svůj limit. Kolega neví, že vám to vadí, a situace se může opakovat. Zkuste říct, co potřebujete a co je pro vás reálné." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Tohle mi práci dost zkomplikuje. Takto to opravdu nejde.", "feedback": "Kritizujete situaci bez konkrétní žádosti. Druhá strana neví, co má změnit. Zkuste popsat dopad na sebe a jasně požádat o změnu (např. posílat úkoly dříve)." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "odmitnuti-pozvanky",
+          "microkurz": 6,
+          "title": "Odmítnutí pozvánky",
+          "context": "Kolega vás zve na firemní večírek v pátek večer. Jste unavení a víte, že byste si měli odpočinout. Nechce se vám jít, ale bojíte se, že to bude vypadat nevděčně.",
+          "goal": "Asertivně odmítnout s respektem k sobě i k pozvání.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Přijdeš v pátek na ten večírek? Bude to super!",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Díky, že jsi na mě myslel, ale tentokrát nemůžu – potřebuju si odpočinout.", "feedback": "Dobře. Oceňujete pozvání, říkáte jasné ne a krátce vysvětlujete bez zbytečného omlouvání. Hranice jsou jasné a vztah zůstává v pohodě." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "Jé, já bych strašně rád, ale víš, bolí mě hlava a musím ještě volat babičce…", "feedback": "Vymýšlíte výmluvy místo upřímného ne. Když to vyjde najevo, může to poškodit důvěru. Zkuste říct jednoduše, že teď ne a že si potřebujete odpočinout." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Na takové akce nemám čas ani náladu.", "feedback": "Zní to odmítavě a může to působit útočně. Druhá strana neví, že to nemyslíte zle. Zkuste poděkovat za pozvání a říct krátce, proč tentokrát ne." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nedodrzely-termin",
+          "microkurz": 7,
+          "title": "Nedodržený termín",
+          "context": "Kolega měl odevzdat podklady včera. Kvůli tomu jste nemohli dokončit svou část včas. Vidíte ho u kafe a chcete to s ním probrat.",
+          "goal": "Popsat dopad na vás a jasně říct, co potřebujete příště – bez útoků na osobu.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Jo, promiň, včera jsem to nestihl. Bude to do zítra, to stačí, ne?",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Když se nedodrží termín, mám potíže s navazující prací. Potřebuju, abychom příště termíny opravdu drželi, nebo abychom je včas upravili.", "feedback": "Výborně. Popisujete dopad na svou práci a jasně říkáte, co potřebujete. Kritika směřuje na situaci a na chování, ne na člověka." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "No… doufám, že příště to vyjde.", "feedback": "Nesdělujete, jak vás to ovlivnilo ani co potřebujete. Druhý nemá důvod cokoli měnit. Zkuste popsat dopad a říct konkrétní očekávání na příště." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Ty jsi zase všechno pokazil. Kvůli tobě jsem v průšvihu.", "feedback": "Útočíte na osobu („ty jsi pokazil“). Druhá strana se bude bránit místo spolupráce. Zkuste popsat situaci a dopad na vás, bez obviňování." }
+              ]
+            },
+            {
+              "stepIndex": 1,
+              "partnerLine": "Máš pravdu, příště to pohlídám. Díky, že jsi to řekl přímo.",
+              "options": [
+                { "type": "assertive", "label": "Uzavření", "text": "Díky za pochopení.", "feedback": "Scénář ukončen. Hezky jste situaci uzavřeli a druhá strana ví, co od ní očekáváte." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pozde-prichody",
+          "microkurz": 7,
+          "title": "Opakované pozdní příchody",
+          "context": "Kolega dorazil na vaši společnou pracovní schůzku o 15 minut později. Není to poprvé a vám to narušuje další program dne.",
+          "goal": "Asertivně reagovat na pozdní příchod a vyjádřit potřebu začínat příště včas.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Promiň, že jdu pozdě, měl jsem zpoždění. Pojďme začít.",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Když schůzka začne později, dostávám se pak v celém dni do skluzu. Potřebuju, abychom příště začínali přesně včas.", "feedback": "Správně. Popisujete objektivní dopad na vaši práci a vyjadřujete jasnou potřebu do budoucna, aniž byste na kolegu útočili." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "To je v pohodě, hlavně že jsi tady. Pojďme rychle začít, ať to stihneme.", "feedback": "Tímto přístupem nesdělujete svůj limit. Kolega získá dojem, že pozdní příchody nevadí, a situace se bude pravděpodobně opakovat." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Takhle se nedá pracovat, když chodíš pořád pozdě. Je to od tebe nezodpovědné vůči ostatním.", "feedback": "Hodnotíte charakter druhého a kritizujete místo hledání řešení. To obvykle vede k defenzivě. Zkuste popsat dopad na sebe a jasně požádat o změnu." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "potreba-pomoci-s-projektem",
+          "microkurz": 5,
+          "title": "Potřeba pomoci s projektem",
+          "context": "Pracujete na důležité prezentaci a cítíte, že jste časově přetížení. Potřebujete, aby se na to s vámi někdo podíval, abyste se vyhnuli chybám.",
+          "goal": "Asertivně požádat kolegu o pomoc – přímo a s konkrétním návrhem.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Hele, jak to máš s tou prezentací na středu? Potřebuješ něco?",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Potřebuju pomoc s prezentací, jsem teď časově přetížený. Měl bys zítra čas to se mnou projít?", "feedback": "Správně. Žádost je přímá, srozumitelná a obsahuje konkrétní návrh. Respektujete své potřeby i čas kolegy." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "Asi bych potřeboval pomoct, ale nechci tě tím zdržovat, určitě máš dost své práce.", "feedback": "Působíte nejistě a svou žádost v podstatě hned sami zpochybňujete. Kolega vás pravděpodobně odmítne, protože mu dáváte „východisko“." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Měl bys mi s tím pomoct, je to přece i tvoje vizitka a sám to všechno prostě neudělám.", "feedback": "Používáte nátlak a vyčítáte. Tento styl komunikace vyvolává v druhém spíše odpor než ochotu pomoci. Zkuste požádat přímo a s respektem k jeho času." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pozdi-odevzdani-podkladu",
+          "microkurz": 7,
+          "title": "Pozdní odevzdání podkladů",
+          "context": "Kolega vám odevzdal podklady pro vaši analýzu o dva dny později, než bylo domluveno. Kvůli tomu jste museli pracovat přesčas, abyste stihli finální termín.",
+          "goal": "Jasně popsat dopad na vás a definovat, co potřebujete příště.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Promiň, že to přišlo o něco později. Stihl jsi to?",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "To, že podklady přišly o dva dny později, mě donutilo pracovat přesčas. Příště potřebuji, abychom dodrželi domluvený termín.", "feedback": "Správně. Jasně popisujete negativní důsledek jeho chování na váš čas (přesčas) a definujete, jak má spolupráce vypadat příště." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "(Nic neřeknete a podklady zpracujete bez komentáře.)", "feedback": "Vyhýbáte se nepříjemné konverzaci, ale dáváte tím tichý souhlas k tomu, aby se termíny porušovaly i příště." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Kvůli tvému zpoždění jsem tu musel tvrdnout do noci. Příště by ses měl víc snažit dodržet, co slíbíš.", "feedback": "Zaměřujete se na obviňování a dáváte kolegovi najevo jeho selhání, což uzavírá cestu k věcné dohodě do budoucna. Zkuste popsat dopad a jasně říct, co potřebujete příště." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "gramofon-prescas",
+          "microkurz": 2,
+          "title": "Opakovaný tlak na přesčas",
+          "context": "Kolega vás po druhé tlačí, abyste s ním zůstali přes čas a pomohli mu dodělat prezentaci. Vy jste už řekli, že nemůžete, ale on opakovaně zkouší.",
+          "goal": "Klidně a vytrvale držet ne, bez výmluv (technika poškrábané gramofonové desky).",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Hele, vážně bych to ocenil, jen na hodinku. Pomůžeš mi?",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Vím, že je to pro tebe důležité, ale dneska zůstat opravdu nemůžu.", "feedback": "Přesně technika gramofonu: krátké, klidné stanovisko bez výmluv. Druhý nemá za co zatáhnout." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "Hmm, no, tak možná na chvíli, jestli to nepůjde jinak…", "feedback": "Ustoupil/a jste. Zkuste klidně zopakovat svoje stanovisko, jako „jehla v gramofonu“." },
+                { "type": "aggressive", "label": "Reakce s výmluvou", "text": "Nemůžu, hlídám děti a slíbil jsem ženě, že přijdu včas, a ještě mám doktora.", "feedback": "Výmluva otevírá prostor pro vyjednávání („tak si zavolej babičku“). Krátké „dnes to nejde“ nemá kam pokračovat." }
+              ]
+            },
+            {
+              "stepIndex": 1,
+              "partnerLine": "No tak fajn, příště ti to oplatím, jo? Jen dneska, prosím.",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Dneska to opravdu nejde.", "feedback": "Stejné stanovisko, klidně, znovu. To je síla gramofonu — nemusíte vysvětlovat ani omlouvat." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "No tak dobře, jen pár minut.", "feedback": "Pod opakovaným tlakem jste ustoupil/a. Síla gramofonu je v tom, že na třetí pokus říkáte to stejné." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "otevrene-dvere-vycitka",
+          "microkurz": 3,
+          "title": "„Dřív jsi byla ochotnější“",
+          "context": "Známá vás žádá o pomoc s velkým stěhováním v sobotu. Když odmítnete, řekne dotčeně: „Dřív jsi byla ochotnější. Vůbec tě nepoznávám.“",
+          "goal": "Použít techniku otevřených dveří — souhlasit s částí sdělení, ale zůstat u svého.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Dřív jsi byla ochotnější. Vůbec tě nepoznávám.",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Možná máš pravdu, dřív jsem pomáhala víc. Dneska to ale opravdu nevezmu.", "feedback": "Otevřené dveře: souhlasíte s částí, ale rozhodnutí zůstává vaše. Nebojujete ani neustupujete." },
+                { "type": "passive", "label": "Obranná reakce", "text": "Není to pravda, já se snažím pořád stejně, jen teď mám hodně práce.", "feedback": "Obhajujete se a tím přijímáte pravidla hry druhé strany. Otevřete dveře — uznejte část a držte rozhodnutí." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Když ti to nevyhovuje, můžeš si poradit sama.", "feedback": "Protiútok zavře dveře pro dohodu. Otevřené dveře = klidné uznání + držení rozhodnutí." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pauza-pod-tlakem",
+          "microkurz": 4,
+          "title": "Pauza pod emočním tlakem",
+          "context": "Šéf vám během porady řekne před ostatními: „Tohle jsi zase zvoral, jako vždycky.“ Cítíte, jak se vám zvedá hladina a chcete reagovat hned.",
+          "goal": "Rozeznat spouštěč, vyžádat si pauzu, vrátit se klidný/á.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Tohle jsi zase zvoral, jako vždycky.",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Slyším, co říkáš. Potřebuju chvíli na rozmyšlenou, ozvu se ti během hodiny.", "feedback": "Pauza je vědomá volba. Necháváte emoci usadit, ne útěk. To je mistrovský tah, ne slabost." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "(Mlčíte, polknete a přejdete to bez komentáře.)", "feedback": "Mlčení nechává hranici nepojmenovanou. Pauza není totéž co potlačení." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Tak si to udělej sám, jestli to umíš líp!", "feedback": "Vybouchnutí stojí na spouštěči, ne na vašem rozhodnutí. Dejte si pauzu, dech, a vraťte se." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pasivni-agresivita-kolegyne",
+          "microkurz": 9,
+          "title": "„Někdo má víc času“",
+          "context": "V pondělí jste odmítli vzít víkendovou službu navíc. V úterý kolegyně u kávy řekne sarkasticky: „No jasně, někdo má pořád víc času než ostatní.“",
+          "goal": "Pojmenovat pasivní agresivitu klidně a otevřít přímý dialog.",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "No jasně, někdo má pořád víc času než ostatní.",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Zní to, jako by tě to mrzelo. Je něco, co bys mi chtěla říct napřímo?", "feedback": "Pojmenováním vytahujete věc na povrch. Pasivní agresivita ztrácí sílu, dialog se otevírá." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "Promiň, no… asi to vzít budu muset.", "feedback": "Omluva za rozhodnutí přijímá vinu, kterou si druhý chtěl, abyste cítila. Pojmenujte, co se děje." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Tobě je teda nějak hodně do mě, viď?", "feedback": "Vracíte ironii a roztáčíte tu hru dál. Pojmenujte klidně, co se děje." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tvrde-emoce-druheho",
+          "microkurz": 10,
+          "title": "„Fakt mě zklamáváš“",
+          "context": "Odmítli jste kolegovi pomoct s jeho úkolem. Reaguje silně a osobně: „Fakt mě tím zklamáváš. To bych do tebe neřekl.“",
+          "goal": "Přijmout emoci druhého, ale neměnit vlastní rozhodnutí (mistrovství asertivity).",
+          "steps": [
+            {
+              "stepIndex": 0,
+              "partnerLine": "Fakt mě tím zklamáváš. To bych do tebe neřekl.",
+              "options": [
+                { "type": "assertive", "label": "Asertivní reakce", "text": "Rozumím, že tě to mrzí. I přesto to teď nemůžu udělat.", "feedback": "Mistrovství asertivity: empatie + držení rozhodnutí. Slyšíte druhého, ale vaše hranice zůstává." },
+                { "type": "passive", "label": "Pasivní reakce", "text": "No tak dobře, něco vymyslím, ať tě v tom nenechávám.", "feedback": "Změnil/a jste rozhodnutí jen proto, že druhý je zklamaný. Váš kompas nejsou jeho emoce." },
+                { "type": "aggressive", "label": "Agresivní reakce", "text": "Ty se zase taháš za růžky, vždycky stejný!", "feedback": "Útok na osobu zavírá dialog a navíc vás vtáhne do emoční pasti. Zůstaňte u sebe — přiznejte emoci, držte rozhodnutí." }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    const scenarios = SCENARIOS_DATA.scenarios;
+    let currentScenario = null;
+    let currentStepIndex = 0;
+
+    const screenList = document.getElementById('screen-list');
+    const screenIntro = document.getElementById('screen-intro');
+    const screenStep = document.getElementById('screen-step');
+    const scenarioCards = document.getElementById('scenario-cards');
+    const introTitle = document.getElementById('intro-title');
+    const introContext = document.getElementById('intro-context');
+    const introGoal = document.getElementById('intro-goal');
+    const stepPartnerLine = document.getElementById('step-partner-line');
+    const stepOptions = document.getElementById('step-options');
+    const stepResult = document.getElementById('step-result');
+    const resultText = document.getElementById('result-text');
+    const resultFeedback = document.getElementById('result-feedback');
+    const btnStart = document.getElementById('btn-start');
+    const btnBackList = document.getElementById('btn-back-list');
+    const btnNextStep = document.getElementById('btn-next-step');
+    const btnEndScenario = document.getElementById('btn-end-scenario');
+    const btnBackAfter = document.getElementById('btn-back-after');
+
+    function showScreen(screen) {
+      screenList.classList.add('hidden');
+      screenIntro.classList.add('hidden');
+      screenStep.classList.add('hidden');
+      screen.classList.remove('hidden');
+    }
+
+    function renderScenarioList() {
+      scenarioCards.innerHTML = scenarios.map(s => {
+        const mkTag = s.microkurz && MICROKURZ[s.microkurz]
+          ? `<span class="scenario-tag">${MICROKURZ[s.microkurz].title}</span>`
+          : '';
+        return `
+        <div class="card card-clickable" data-id="${s.id}">
+          <strong>${s.title}${mkTag}</strong>
+          <p style="margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--muted);">${s.context.slice(0, 120)}…</p>
+        </div>
+      `;}).join('');
+      scenarioCards.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => selectScenario(card.dataset.id));
+      });
+    }
+
+    function selectScenario(id) {
+      currentScenario = scenarios.find(s => s.id === id);
+      if (!currentScenario) return;
+      const mkTag = currentScenario.microkurz && MICROKURZ[currentScenario.microkurz]
+        ? `<span class="scenario-tag">${MICROKURZ[currentScenario.microkurz].title}</span>`
+        : '';
+      introTitle.innerHTML = `${currentScenario.title}${mkTag}`;
+      introContext.textContent = currentScenario.context;
+      introGoal.textContent = currentScenario.goal;
+      showScreen(screenIntro);
+    }
+
+    function startScenario() {
+      currentStepIndex = 0;
+      renderStep();
+      showScreen(screenStep);
+    }
+
+    function renderStep() {
+      const step = currentScenario.steps[currentStepIndex];
+      stepPartnerLine.textContent = step.partnerLine;
+      stepOptions.innerHTML = step.options.map((opt, i) => `
+        <button type="button" class="option-btn" data-index="${i}">
+          <div class="option-label">${opt.label}</div>
+          ${opt.text}
+        </button>
+      `).join('');
+      stepResult.classList.add('hidden');
+      stepOptions.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', () => onOptionClick(parseInt(btn.dataset.index, 10)));
+      });
+      btnNextStep.classList.add('hidden');
+      btnEndScenario.classList.add('hidden');
+    }
+
+    function onOptionClick(optionIndex) {
+      const step = currentScenario.steps[currentStepIndex];
+      const opt = step.options[optionIndex];
+      stepOptions.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      resultText.textContent = opt.text;
+
+      let feedbackHtml = opt.feedback;
+      if (opt.type !== 'assertive' && currentScenario.microkurz && MICROKURZ[currentScenario.microkurz]) {
+        const mk = MICROKURZ[currentScenario.microkurz];
+        feedbackHtml += `
+          <div class="microkurz-hint">
+            <strong>Pusť si znovu:</strong> ${mk.title} — ${mk.focus}
+          </div>
+        `;
+      }
+      resultFeedback.innerHTML = feedbackHtml;
+      resultFeedback.className = 'feedback ' + (opt.type || 'assertive');
+      stepResult.classList.remove('hidden');
+
+      const hasNext = currentStepIndex < currentScenario.steps.length - 1;
+      if (hasNext) {
+        btnNextStep.classList.remove('hidden');
+      } else {
+        btnEndScenario.classList.remove('hidden');
+      }
+    }
+
+    function nextStep() {
+      currentStepIndex++;
+      renderStep();
+    }
+
+    function endScenario() {
+      showScreen(screenList);
+      currentScenario = null;
+    }
+
+    btnStart.addEventListener('click', startScenario);
+    btnBackList.addEventListener('click', () => showScreen(screenList));
+    btnNextStep.addEventListener('click', nextStep);
+    btnEndScenario.addEventListener('click', endScenario);
+    btnBackAfter.addEventListener('click', (e) => { e.preventDefault(); endScenario(); });
+
+    renderScenarioList();
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+.DS_Store
+*.docx
+*.doc
+
+# Zdrojová videa a interní materiály (velké soubory, ne pro studenty)
+microkurzy Dedicova/
+
+# Interní podklady a duplicitní Netlify balíček
+deep-research-report-best-practices for AI role-play.md
+role-play-design-podklad.md
+Prehled-scenare-varianty-pro-kontrolu.doc
+roleplay-netlify/
+*.pdf
