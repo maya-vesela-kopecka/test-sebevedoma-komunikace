@@ -6,10 +6,9 @@ Interaktivní test a role-play k microsérii **Sebevědomá komunikace** (Lenka 
 
 | Stránka | Popis |
 |---------|--------|
-| [index.html](index.html) | Úvodní menu |
-| [test-sebevedoma-komunikace.html](test-sebevedoma-komunikace.html) | Kvíz (15 otázek ze 25) + výzvy k akci + zpětná vazba |
-| [roleplay.html](roleplay.html) | Role-play – výběr z připravených reakcí |
-| [roleplay-free.html](roleplay-free.html) | Role-play – vlastní odpověď s jednoduchým vyhodnocením |
+| [index.html](index.html) | Úvodní stránka – výběr způsobu procvičení |
+| [roleplay.html](roleplay.html) | Výběr z možností (8 scénářů) |
+| [roleplay-free.html](roleplay-free.html) | Vlastní odpovědi |
 | [scenarios.json](scenarios.json) | Data scénářů pro role-play |
 
 ## Publikace na GitHub Pages

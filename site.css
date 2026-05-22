@@ -1,14 +1,102 @@
-/* Sdílené styly pro veřejnou verzi (GitHub Pages) */
+/* Seduo branding – sdílené styly (GitHub Pages) */
 
+:root {
+  --seduo-bg: #f5f5f7;
+  --seduo-card: #ffffff;
+  --seduo-text: #1d1d1f;
+  --seduo-muted: #6e6e73;
+  --seduo-accent: #0071e3;
+  --seduo-green: #30B99B;
+  --seduo-header: #321C3D;
+  --seduo-border: #d2d2d7;
+  --seduo-radius: 12px;
+  --seduo-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* aliasy pro starší šablony v JS */
+  --muted: var(--seduo-muted);
+  --text: var(--seduo-text);
+  --assertive: #137333;
+  --passive: #b45309;
+  --aggressive: #b91c1c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--seduo-bg);
+  color: var(--seduo-text);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.seduo-header {
+  background: var(--seduo-header);
+  padding: 1rem 1.5rem;
+}
+
+.seduo-header-logo {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.seduo-main {
+  padding: 1.5rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.seduo-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--seduo-text);
+}
+
+.seduo-desc {
+  color: var(--seduo-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.seduo-scenario-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  color: var(--seduo-green);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--seduo-muted);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: var(--seduo-text);
+}
+
+.back-links {
+  margin-bottom: 1rem;
+}
+
+/* AI upozornění */
 .ai-notice {
-  background: #f0f4f8;
-  border: 1px solid #c5d4e8;
-  border-left: 4px solid #2563a8;
+  background: #f0f7f5;
+  border: 1px solid #c5e8df;
+  border-left: 4px solid var(--seduo-green);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   margin-bottom: 1.25rem;
   font-size: 0.9rem;
-  color: #1a1a1a;
+  color: var(--seduo-text);
   line-height: 1.45;
 }
 
@@ -16,10 +104,271 @@
   font-weight: 600;
 }
 
+/* Karty výběru na úvodní stránce */
+.exercise-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.exercise-card {
+  display: block;
+  background: var(--seduo-card);
+  border-radius: var(--seduo-radius);
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--seduo-border);
+  box-shadow: var(--seduo-shadow);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.exercise-card:hover {
+  border-color: var(--seduo-green);
+  box-shadow: 0 4px 12px rgba(48, 185, 155, 0.15);
+}
+
+.exercise-card .icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.exercise-card .title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+}
+
+.exercise-card .desc {
+  font-size: 0.9rem;
+  color: var(--seduo-muted);
+  margin: 0 0 0.75rem;
+  line-height: 1.4;
+}
+
+.exercise-card .badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: #e8f0fe;
+  color: var(--seduo-accent);
+  font-weight: 500;
+}
+
+.badge.recommended {
+  background: #e6f4ea;
+  color: #137333;
+}
+
+.footer-link {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+.footer-link a {
+  color: var(--seduo-muted);
+  text-decoration: none;
+}
+
+.footer-link a:hover {
+  text-decoration: underline;
+}
+
+/* Role-play komponenty */
+.card {
+  background: var(--seduo-card);
+  border-radius: var(--seduo-radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--seduo-border);
+  box-shadow: var(--seduo-shadow);
+}
+
+.card-clickable {
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card-clickable:hover {
+  border-color: var(--seduo-green);
+  box-shadow: 0 4px 12px rgba(48, 185, 155, 0.12);
+}
+
+.partner-bubble {
+  background: var(--seduo-card);
+  border-left: 4px solid var(--seduo-green);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--seduo-border);
+}
+
+.partner-bubble .who {
+  font-size: 0.8rem;
+  color: var(--seduo-muted);
+  margin-bottom: 0.35rem;
+}
+
+.option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--seduo-border);
+  border-radius: 8px;
+  background: var(--seduo-card);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.option-btn:hover {
+  border-color: var(--seduo-green);
+  background: #e0f2ef;
+}
+
+.option-btn .option-label {
+  font-size: 0.8rem;
+  color: var(--seduo-muted);
+  margin-bottom: 0.35rem;
+}
+
+.your-reply {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #f0f7f5;
+  border: 1px solid var(--seduo-border);
+}
+
+.your-reply .label {
+  font-size: 0.8rem;
+  color: var(--seduo-muted);
+  margin-bottom: 0.35rem;
+}
+
+.feedback {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.feedback.assertive {
+  background: #e6f4ea;
+  color: var(--assertive);
+  border: 1px solid #81c995;
+}
+
+.feedback.passive {
+  background: #fef7e0;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+.feedback.aggressive {
+  background: #fce8e6;
+  color: var(--aggressive);
+  border: 1px solid #f5a5a5;
+}
+
+.feedback.unclear {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.microkurz-hint {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid var(--seduo-border);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.microkurz-hint strong {
+  color: var(--seduo-green);
+}
+
+.scenario-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--seduo-muted);
+  background: #f0f0ee;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--seduo-green);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  text-decoration: none;
+}
+
+.btn:hover {
+  filter: brightness(1.05);
+}
+
+.btn-secondary {
+  background: var(--seduo-border);
+  color: var(--seduo-text);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.context-block {
+  color: var(--seduo-text);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.subtitle {
+  color: var(--seduo-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Typeform karta */
 .typeform-card {
-  background: #eaf2fb;
-  border: 1px solid #c5d4e8;
-  border-left: 4px solid #2563a8;
+  background: #e0f2ef;
+  border: 1px solid #c5e8df;
+  border-left: 4px solid var(--seduo-green);
   border-radius: 12px;
   padding: 1.5rem;
   margin-top: 1.5rem;
@@ -29,19 +378,19 @@
 .typeform-card h2 {
   margin: 0 0 0.5rem;
   font-size: 1.15rem;
-  color: #1a1a1a;
+  color: var(--seduo-text);
 }
 
 .typeform-card p {
   margin: 0 0 1rem;
-  color: #5c5c5c;
+  color: var(--seduo-muted);
   font-size: 0.95rem;
 }
 
 .typeform-card .btn-typeform {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background: #2563a8;
+  background: var(--seduo-green);
   color: #fff;
   border-radius: 8px;
   font-weight: 600;
@@ -56,5 +405,56 @@
 .typeform-card .typeform-note {
   margin-top: 0.75rem;
   font-size: 0.8rem;
-  color: #5c5c5c;
+  color: var(--seduo-muted);
+}
+
+.textarea-wrap {
+  margin-bottom: 1rem;
+}
+
+.textarea-wrap label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.textarea-wrap textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 1rem;
+  border: 2px solid var(--seduo-border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.textarea-wrap textarea:focus {
+  outline: none;
+  border-color: var(--seduo-green);
+}
+
+.eval-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.eval-badge.assertive { background: #e6f4ea; color: var(--assertive); }
+.eval-badge.passive { background: #fef7e0; color: #92400e; }
+.eval-badge.aggressive { background: #fce8e6; color: var(--aggressive); }
+.eval-badge.unclear { background: #e5e7eb; color: #374151; }
+
+.tip {
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  color: var(--seduo-muted);
+}
+
+.tip strong {
+  color: var(--seduo-text);
 }

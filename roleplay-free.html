@@ -3,138 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Role-play – vlastní reakce</title>
+  <title>Vlastní odpovědi – Sebevědomá komunikace</title>
   <link rel="stylesheet" href="site.css">
-  <style>
-    :root {
-      --bg: #f8f6f3;
-      --card: #fff;
-      --text: #1a1a1a;
-      --muted: #5c5c5c;
-      --assertive: #0d6b2e;
-      --passive: #b45309;
-      --aggressive: #b91c1c;
-      --accent: #2563a8;
-      --border: #e5e2de;
-      --radius: 12px;
-      --font: 'Segoe UI', system-ui, sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      margin: 0;
-      padding: 1.5rem;
-      min-height: 100vh;
-    }
-    .container { max-width: 640px; margin: 0 auto; }
-    h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 0.5rem; }
-    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06);
-      border: 1px solid var(--border);
-    }
-    .card-clickable { cursor: pointer; transition: border-color .15s, box-shadow .15s; }
-    .card-clickable:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(37,99,168,.15); }
-    .partner-bubble {
-      background: #e8eef5;
-      border-left: 4px solid var(--accent);
-      padding: 1rem 1.25rem;
-      border-radius: 8px;
-      margin-bottom: 1.25rem;
-      font-style: italic;
-    }
-    .partner-bubble .who { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.35rem; font-style: normal; }
-    .textarea-wrap { margin-bottom: 1rem; }
-    .textarea-wrap label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem; }
-    textarea {
-      width: 100%;
-      min-height: 100px;
-      padding: 1rem;
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 0.95rem;
-      resize: vertical;
-    }
-    textarea:focus { outline: none; border-color: var(--accent); }
-    .your-reply {
-      margin-top: 1rem;
-      padding: 1rem;
-      border-radius: 8px;
-      background: #f0f4f8;
-      border: 1px solid var(--border);
-    }
-    .your-reply .label { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.35rem; }
-    .eval-badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    .eval-badge.assertive { background: #dcfce7; color: var(--assertive); }
-    .eval-badge.passive { background: #fef3c7; color: #92400e; }
-    .eval-badge.aggressive { background: #fee2e2; color: var(--aggressive); }
-    .eval-badge.unclear { background: #e5e7eb; color: #374151; }
-    .feedback {
-      margin-top: 0.5rem;
-      padding: 1rem 1.25rem;
-      border-radius: 8px;
-      font-weight: 500;
-    }
-    .feedback.assertive { background: #dcfce7; color: var(--assertive); border: 1px solid #86efac; }
-    .feedback.passive { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
-    .feedback.aggressive { background: #fee2e2; color: var(--aggressive); border: 1px solid #fca5a5; }
-    .feedback.unclear { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
-    .tip { font-size: 0.9rem; margin-top: 0.75rem; color: var(--muted); }
-    .tip strong { color: var(--text); }
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 0.5rem;
-      margin-right: 0.5rem;
-      text-decoration: none;
-    }
-    .btn:hover { filter: brightness(1.05); }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .btn-secondary { background: var(--border); color: var(--text); }
-    .hidden { display: none !important; }
-    .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
-  </style>
 </head>
 <body>
-  <div class="container">
+  <header class="seduo-header">
+    <img src="Logo%20Seduo%20CZ%20bile.png" alt="Seduo CZ" class="seduo-header-logo">
+  </header>
+  <main class="seduo-main">
     <div class="ai-notice" role="note">
       <strong>Upozornění:</strong> Tento test byl vytvořen ve spolupráci s AI.
     </div>
-    <p style="margin-bottom: 1rem;"><a href="index.html" style="color: var(--accent); font-size: 0.9rem;">← Zpět na hlavní stránu</a></p>
-    <h1>Role-play: vlastní reakce</h1>
-    <p class="subtitle">Napište vlastní odpověď (nevybírejte z možností). Po odeslání dostanete vyhodnocení podle typu reakce a předpřipravenou zpětnou vazbu.</p>
+    <div class="back-links">
+      <a href="index.html" class="back-link">← Zpět na hlavní stránku</a>
+      <a href="https://lmc4.typeform.com/to/emV4D50T" class="back-link" target="_blank" rel="noopener noreferrer" style="margin-left: 1rem;">Poslat zpětnou vazbu</a>
+    </div>
 
     <div id="screen-list">
-      <div class="section-title">Vyberte scénář</div>
+      <h2 class="seduo-scenario-title">Sebevědomá komunikace – Vyberte scénář</h2>
+      <p class="context-block">Napište vlastní reakci v dané situaci. Po odeslání dostanete vyhodnocení (asertivní / pasivní / agresivní) a zpětnou vazbu.</p>
+      <p class="context-block" style="font-weight: 600;">Klikněte na scénář, který chcete procvičit.</p>
       <div id="scenario-cards"></div>
     </div>
 
     <div id="screen-intro" class="hidden">
       <div class="card">
-        <div class="section-title" id="intro-title"></div>
+        <h2 class="seduo-scenario-title" id="intro-title"></h2>
         <p id="intro-context"></p>
         <p><strong>Cíl:</strong> <span id="intro-goal"></span></p>
       </div>
@@ -168,7 +62,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
   <script>
     const SCENARIOS_DATA = {
