@@ -87,23 +87,6 @@ body {
   margin-bottom: 1rem;
 }
 
-/* AI upozornění */
-.ai-notice {
-  background: #f0f7f5;
-  border: 1px solid #c5e8df;
-  border-left: 4px solid var(--seduo-green);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.25rem;
-  font-size: 0.9rem;
-  color: var(--seduo-text);
-  line-height: 1.45;
-}
-
-.ai-notice strong {
-  font-weight: 600;
-}
-
 /* Karty výběru na úvodní stránce */
 .exercise-grid {
   display: flex;
@@ -286,31 +269,6 @@ body {
   border: 1px solid #d1d5db;
 }
 
-.microkurz-hint {
-  margin-top: 0.75rem;
-  padding: 0.6rem 0.9rem;
-  background: #fff;
-  border-radius: 6px;
-  border: 1px solid var(--seduo-border);
-  font-weight: 400;
-  font-size: 0.9rem;
-}
-
-.microkurz-hint strong {
-  color: var(--seduo-green);
-}
-
-.scenario-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  color: var(--seduo-muted);
-  background: #f0f0ee;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  margin-left: 0.5rem;
-  font-weight: 500;
-}
-
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -457,4 +415,167 @@ body {
 
 .tip strong {
   color: var(--seduo-text);
+}
+
+/* Role-play – výběr variant (původní vizuál) */
+.roleplay-intro-prep {
+  margin-bottom: 1rem;
+}
+
+.dialogue-container {
+  background: var(--seduo-card);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--seduo-border);
+  box-shadow: var(--seduo-shadow);
+}
+
+.dialogue {
+  margin-bottom: 0.5rem;
+}
+
+.chat-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chat-row.partner {
+  justify-content: flex-start;
+}
+
+.chat-row.you {
+  justify-content: flex-end;
+}
+
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.chat-row.partner .chat-avatar {
+  background: #e8e8ed;
+}
+
+.chat-row.you .chat-avatar {
+  background: rgba(48, 185, 155, 0.2);
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.chat-row.partner .chat-bubble {
+  background: var(--seduo-card);
+  color: var(--seduo-text);
+  border: 1px solid var(--seduo-border);
+  border-radius: 14px 14px 14px 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.chat-row.you .chat-bubble {
+  background: var(--seduo-green);
+  color: #fff;
+  border-radius: 14px 14px 4px 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.choice-label {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.75rem;
+  color: var(--seduo-green);
+  text-align: center;
+}
+
+.roleplay-options .option-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--seduo-border);
+  border-radius: 12px;
+  background: var(--seduo-card);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.roleplay-options .option-btn:hover:not(:disabled) {
+  border-color: var(--seduo-green);
+  box-shadow: 0 4px 12px rgba(48, 185, 155, 0.15);
+}
+
+.roleplay-options .option-btn .opt-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e0f2ef;
+  border: 2px solid var(--seduo-green);
+  color: var(--seduo-green);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.roleplay-options .option-btn .opt-text {
+  flex: 1;
+  color: var(--seduo-text);
+}
+
+.roleplay-options .option-btn .opt-label {
+  display: none;
+}
+
+.roleplay-options .option-btn.selected {
+  border: 2px solid var(--seduo-green);
+  background: #e0f2ef;
+  box-shadow: 0 2px 8px rgba(48, 185, 155, 0.2);
+}
+
+.roleplay-options .option-btn.selected .opt-num {
+  background: var(--seduo-green);
+  color: #fff;
+}
+
+.roleplay-options .option-btn.selected::after {
+  content: ' ✓ Vaše volba';
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--seduo-green);
+  flex-shrink: 0;
+}
+
+.roleplay-options .option-btn:disabled {
+  cursor: default;
+}
+
+#step-actions {
+  margin-top: 1rem;
+}
+
+.step-progress {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--seduo-muted);
 }

@@ -11,9 +11,6 @@
     <img src="Logo%20Seduo%20CZ%20bile.png" alt="Seduo CZ" class="seduo-header-logo">
   </header>
   <main class="seduo-main">
-    <div class="ai-notice" role="note">
-      <strong>Upozornění:</strong> Tento test byl vytvořen ve spolupráci s AI.
-    </div>
     <div class="back-links">
       <a href="index.html" class="back-link">← Zpět na hlavní stránku</a>
       <a href="https://lmc4.typeform.com/to/emV4D50T" class="back-link" target="_blank" rel="noopener noreferrer" style="margin-left: 1rem;">Poslat zpětnou vazbu</a>
@@ -27,52 +24,35 @@
     </div>
 
     <div id="screen-intro" class="hidden">
-      <div class="card">
-        <h2 class="seduo-scenario-title" id="intro-title"></h2>
-        <p id="intro-context"></p>
-        <p><strong>Cíl:</strong> <span id="intro-goal"></span></p>
-      </div>
+      <h2 class="seduo-scenario-title" id="intro-title"></h2>
+      <p class="context-block" id="intro-context"></p>
+      <p class="context-block"><strong>Cíl:</strong> <span id="intro-goal"></span></p>
+      <p class="context-block roleplay-intro-prep">Až budete připraveni, klikněte na Začít a přejdete do situace.</p>
       <button type="button" class="btn" id="btn-start">Začít</button>
       <button type="button" class="btn btn-secondary" id="btn-back-list">Zpět na výběr</button>
     </div>
 
     <div id="screen-step" class="hidden">
-      <div class="partner-bubble">
-        <div class="who">Kolega</div>
-        <div id="step-partner-line"></div>
-      </div>
-      <div class="section-title">Jak zareagujete?</div>
-      <div id="step-options"></div>
-      <div id="step-result" class="hidden">
-        <div class="your-reply">
-          <div class="label">Vaše odpověď</div>
-          <div id="result-text"></div>
-        </div>
-        <div id="result-feedback" class="feedback"></div>
-        <div id="step-actions">
-          <button type="button" class="btn hidden" id="btn-next-step">Další krok</button>
-          <button type="button" class="btn hidden" id="btn-end-scenario">Konec scénáře</button>
-          <a href="#" class="btn btn-secondary" id="btn-back-after">Vybrat jiný scénář</a>
+      <h2 class="seduo-scenario-title" id="step-scenario-title"></h2>
+      <p class="step-progress hidden" id="step-progress"></p>
+      <p class="context-block" id="step-context"></p>
+      <div class="dialogue-container">
+        <div class="dialogue" id="dialogue-accumulated"></div>
+        <div class="choice-label" id="choice-label">Jak zareagujete?</div>
+        <div id="step-options" class="roleplay-options"></div>
+        <div id="step-result" class="hidden">
+          <div id="result-feedback" class="feedback"></div>
+          <div id="step-actions">
+            <button type="button" class="btn btn-secondary hidden" id="btn-try-again">Zkusit znovu</button>
+            <button type="button" class="btn hidden" id="btn-next-step">Další krok</button>
+            <button type="button" class="btn btn-secondary" id="btn-pick-other">Vybrat jiný scénář</button>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
   <script>
-    const MICROKURZ = {
-      1:  { title: 'M1 Asertivita',       focus: 'Tři kroky: popis situace → co to s vámi dělá → návrh řešení.' },
-      2:  { title: 'M2 Gramofon',         focus: 'Klidně opakovat stanovisko bez výmluv — ty otvírají prostor k vyjednávání.' },
-      3:  { title: 'M3 Otevřené dveře',   focus: 'Souhlasit s částí sdělení, ale držet vlastní rozhodnutí.' },
-      4:  { title: 'M4 Emoce',            focus: 'Rozpoznat spouštěč (red flag), říct si o pauzu, dýchat.' },
-      5:  { title: 'M5 Žádost',           focus: 'Konkrétní žádost, ne tichá naděje. Žádost dává prostor i pro ne.' },
-      6:  { title: 'M6 Odmítnutí',        focus: 'Krátké jasné ne bez omluvy za rozhodnutí.' },
-      7:  { title: 'M7 Feedback',         focus: 'Popis chování + já-sdělení + návrh, ne nálepka osoby.' },
-      8:  { title: 'M8 Mindset',          focus: 'Asertivita stojí na rovnosti a asertivních právech.' },
-      9:  { title: 'M9 Výčitky',          focus: 'Pojmenovat pasivní agresivitu klidně, nepřijímat vinu.' },
-      10: { title: 'M10 Zůstat u sebe',   focus: 'Empatie k emoci druhého + držení vlastního rozhodnutí.' },
-      11: { title: 'M11 Techniky',        focus: 'Asertivita je střed mezi pasivitou a agresí.' }
-    };
-
     const SCENARIOS_DATA = {
       "scenarios": [
         {
@@ -294,6 +274,7 @@
     const scenarios = SCENARIOS_DATA.scenarios;
     let currentScenario = null;
     let currentStepIndex = 0;
+    let dialogueHistory = [];
 
     const screenList = document.getElementById('screen-list');
     const screenIntro = document.getElementById('screen-intro');
@@ -302,16 +283,19 @@
     const introTitle = document.getElementById('intro-title');
     const introContext = document.getElementById('intro-context');
     const introGoal = document.getElementById('intro-goal');
-    const stepPartnerLine = document.getElementById('step-partner-line');
+    const stepScenarioTitle = document.getElementById('step-scenario-title');
+    const stepProgress = document.getElementById('step-progress');
+    const stepContext = document.getElementById('step-context');
+    const dialogueAccumulated = document.getElementById('dialogue-accumulated');
+    const choiceLabel = document.getElementById('choice-label');
     const stepOptions = document.getElementById('step-options');
     const stepResult = document.getElementById('step-result');
-    const resultText = document.getElementById('result-text');
     const resultFeedback = document.getElementById('result-feedback');
     const btnStart = document.getElementById('btn-start');
     const btnBackList = document.getElementById('btn-back-list');
+    const btnTryAgain = document.getElementById('btn-try-again');
     const btnNextStep = document.getElementById('btn-next-step');
-    const btnEndScenario = document.getElementById('btn-end-scenario');
-    const btnBackAfter = document.getElementById('btn-back-after');
+    const btnPickOther = document.getElementById('btn-pick-other');
 
     function showScreen(screen) {
       screenList.classList.add('hidden');
@@ -320,17 +304,19 @@
       screen.classList.remove('hidden');
     }
 
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
     function renderScenarioList() {
-      scenarioCards.innerHTML = scenarios.map(s => {
-        const mkTag = s.microkurz && MICROKURZ[s.microkurz]
-          ? `<span class="scenario-tag">${MICROKURZ[s.microkurz].title}</span>`
-          : '';
-        return `
+      scenarioCards.innerHTML = scenarios.map(s => `
         <div class="card card-clickable" data-id="${s.id}">
-          <strong>${s.title}${mkTag}</strong>
-          <p style="margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--muted);">${s.context.slice(0, 120)}…</p>
+          <strong>${escapeHtml(s.title)}</strong>
+          <p style="margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--seduo-muted);">${escapeHtml(s.context.length > 120 ? s.context.slice(0, 120) + '…' : s.context)}</p>
         </div>
-      `;}).join('');
+      `).join('');
       scenarioCards.querySelectorAll('.card').forEach(card => {
         card.addEventListener('click', () => selectScenario(card.dataset.id));
       });
@@ -339,10 +325,7 @@
     function selectScenario(id) {
       currentScenario = scenarios.find(s => s.id === id);
       if (!currentScenario) return;
-      const mkTag = currentScenario.microkurz && MICROKURZ[currentScenario.microkurz]
-        ? `<span class="scenario-tag">${MICROKURZ[currentScenario.microkurz].title}</span>`
-        : '';
-      introTitle.innerHTML = `${currentScenario.title}${mkTag}`;
+      introTitle.textContent = 'Sebevědomá komunikace – ' + currentScenario.title;
       introContext.textContent = currentScenario.context;
       introGoal.textContent = currentScenario.goal;
       showScreen(screenIntro);
@@ -350,52 +333,82 @@
 
     function startScenario() {
       currentStepIndex = 0;
+      dialogueHistory = [];
       renderStep();
       showScreen(screenStep);
     }
 
     function renderStep() {
       const step = currentScenario.steps[currentStepIndex];
-      stepPartnerLine.textContent = step.partnerLine;
+      const totalSteps = currentScenario.steps.length;
+      stepScenarioTitle.textContent = 'Sebevědomá komunikace – ' + currentScenario.title;
+      stepContext.textContent = currentScenario.context;
+      if (totalSteps > 1) {
+        stepProgress.textContent = 'Krok ' + (currentStepIndex + 1) + ' ze ' + totalSteps;
+        stepProgress.classList.remove('hidden');
+      } else {
+        stepProgress.classList.add('hidden');
+      }
+      let dialogueHtml = '';
+      dialogueHistory.forEach(ex => {
+        dialogueHtml += '<div class="chat-row partner"><div class="chat-avatar">😟</div><div class="chat-bubble">' + escapeHtml(ex.partner) + '</div></div>';
+        dialogueHtml += '<div class="chat-row you"><div class="chat-bubble">' + escapeHtml(ex.you) + '</div><div class="chat-avatar">😊</div></div>';
+      });
+      dialogueHtml += '<div class="chat-row partner"><div class="chat-avatar">😟</div><div class="chat-bubble">' + escapeHtml(step.partnerLine) + '</div></div>';
+      dialogueAccumulated.innerHTML = dialogueHtml;
+      choiceLabel.textContent = step.options.length === 1 ? 'Uzavření konverzace' : 'Jak zareagujete?';
       stepOptions.innerHTML = step.options.map((opt, i) => `
         <button type="button" class="option-btn" data-index="${i}">
-          <div class="option-label">${opt.label}</div>
-          ${opt.text}
+          <span class="opt-num">${i + 1}</span>
+          <span class="opt-text">${escapeHtml(opt.text)}</span>
+          <span class="opt-label">${escapeHtml(opt.label || '')}</span>
         </button>
       `).join('');
       stepResult.classList.add('hidden');
       stepOptions.querySelectorAll('.option-btn').forEach(btn => {
         btn.addEventListener('click', () => onOptionClick(parseInt(btn.dataset.index, 10)));
       });
+      btnTryAgain.classList.add('hidden');
       btnNextStep.classList.add('hidden');
-      btnEndScenario.classList.add('hidden');
+      btnPickOther.classList.add('hidden');
     }
 
     function onOptionClick(optionIndex) {
       const step = currentScenario.steps[currentStepIndex];
       const opt = step.options[optionIndex];
-      stepOptions.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-      resultText.textContent = opt.text;
-
-      let feedbackHtml = opt.feedback;
-      if (opt.type !== 'assertive' && currentScenario.microkurz && MICROKURZ[currentScenario.microkurz]) {
-        const mk = MICROKURZ[currentScenario.microkurz];
-        feedbackHtml += `
-          <div class="microkurz-hint">
-            <strong>Pusť si znovu:</strong> ${mk.title} — ${mk.focus}
-          </div>
-        `;
-      }
-      resultFeedback.innerHTML = feedbackHtml;
+      dialogueHistory.push({
+        partner: step.partnerLine,
+        you: opt.text,
+        type: opt.type || 'assertive',
+        feedback: opt.feedback
+      });
+      stepOptions.querySelectorAll('.option-btn').forEach((b, i) => {
+        b.disabled = true;
+        if (i === optionIndex) b.classList.add('selected');
+      });
+      const youRow = document.createElement('div');
+      youRow.className = 'chat-row you';
+      youRow.innerHTML = '<div class="chat-bubble">' + escapeHtml(opt.text) + '</div><div class="chat-avatar">😊</div>';
+      dialogueAccumulated.appendChild(youRow);
+      resultFeedback.textContent = opt.feedback;
       resultFeedback.className = 'feedback ' + (opt.type || 'assertive');
       stepResult.classList.remove('hidden');
 
       const hasNext = currentStepIndex < currentScenario.steps.length - 1;
-      if (hasNext) {
+      btnTryAgain.classList.add('hidden');
+      btnNextStep.classList.add('hidden');
+      btnPickOther.classList.remove('hidden');
+      if (opt.type === 'assertive' && hasNext) {
         btnNextStep.classList.remove('hidden');
       } else {
-        btnEndScenario.classList.remove('hidden');
+        btnTryAgain.classList.remove('hidden');
       }
+    }
+
+    function tryAgain() {
+      currentStepIndex = 0;
+      dialogueHistory = [];
+      renderStep();
     }
 
     function nextStep() {
@@ -403,16 +416,17 @@
       renderStep();
     }
 
-    function endScenario() {
+    function pickOtherScenario() {
       showScreen(screenList);
       currentScenario = null;
+      dialogueHistory = [];
     }
 
     btnStart.addEventListener('click', startScenario);
-    btnBackList.addEventListener('click', () => showScreen(screenList));
+    btnBackList.addEventListener('click', pickOtherScenario);
+    btnTryAgain.addEventListener('click', tryAgain);
     btnNextStep.addEventListener('click', nextStep);
-    btnEndScenario.addEventListener('click', endScenario);
-    btnBackAfter.addEventListener('click', (e) => { e.preventDefault(); endScenario(); });
+    btnPickOther.addEventListener('click', pickOtherScenario);
 
     renderScenarioList();
   </script>

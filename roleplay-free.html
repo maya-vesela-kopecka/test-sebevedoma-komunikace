@@ -11,9 +11,6 @@
     <img src="Logo%20Seduo%20CZ%20bile.png" alt="Seduo CZ" class="seduo-header-logo">
   </header>
   <main class="seduo-main">
-    <div class="ai-notice" role="note">
-      <strong>Upozornění:</strong> Tento test byl vytvořen ve spolupráci s AI.
-    </div>
     <div class="back-links">
       <a href="index.html" class="back-link">← Zpět na hlavní stránku</a>
       <a href="https://lmc4.typeform.com/to/emV4D50T" class="back-link" target="_blank" rel="noopener noreferrer" style="margin-left: 1rem;">Poslat zpětnou vazbu</a>
@@ -27,11 +24,10 @@
     </div>
 
     <div id="screen-intro" class="hidden">
-      <div class="card">
-        <h2 class="seduo-scenario-title" id="intro-title"></h2>
-        <p id="intro-context"></p>
-        <p><strong>Cíl:</strong> <span id="intro-goal"></span></p>
-      </div>
+      <h2 class="seduo-scenario-title" id="intro-title"></h2>
+      <p class="context-block" id="intro-context"></p>
+      <p class="context-block"><strong>Cíl:</strong> <span id="intro-goal"></span></p>
+      <p class="context-block roleplay-intro-prep">Až budete připraveni, klikněte na Začít a přejdete do situace.</p>
       <button type="button" class="btn" id="btn-start">Začít</button>
       <button type="button" class="btn btn-secondary" id="btn-back-list">Zpět na výběr</button>
     </div>
@@ -252,7 +248,7 @@
     function selectScenario(id) {
       currentScenario = scenarios.find(s => s.id === id);
       if (!currentScenario) return;
-      introTitle.textContent = currentScenario.title;
+      introTitle.textContent = 'Sebevědomá komunikace – ' + currentScenario.title;
       introContext.textContent = currentScenario.context;
       introGoal.textContent = currentScenario.goal;
       showScreen(screenIntro);
