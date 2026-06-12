@@ -1,0 +1,164 @@
+{
+  "scenarios": [
+    {
+      "id": "ukol-posledni-chvile",
+      "title": "Úkol na poslední chvíli",
+      "context": "Kolega vám právě poslal e-mail s úkolem, který potřebuje mít zítra. Jste v časovém presu a podobné požadavky už několikrát přišly pozdě.",
+      "goal": "Asertivně požádat o dřívější zadávání úkolů, aniž byste druhého obviňovali.",
+      "steps": [
+        {
+          "stepIndex": 0,
+          "partnerLine": "Hele, potřebuju to mít hotový do zítřka, můžeš na tom zapracovat?",
+          "options": [
+            {
+              "type": "assertive",
+              "label": "Asertivní reakce",
+              "text": "Když mi to přijde tak pozdě, nestihnu to kvalitně do zítřka. Můžeš mi příště posílat úkoly alespoň o den dřív?",
+              "feedback": "Výborně. Popisujete dopad na sebe, žádáte konkrétní změnu a nespadáte do kritiky ani útoku. Druhá strana ví, co má příště udělat."
+            },
+            {
+              "type": "passive",
+              "label": "Pasivní reakce",
+              "text": "No… dobře, zkusím to.",
+              "feedback": "Tím jste nesdělili svůj limit. Kolega neví, že vám to vadí, a situace se může opakovat. Zkuste říct, co potřebujete a co je pro vás reálné."
+            },
+            {
+              "type": "aggressive",
+              "label": "Agresivní reakce",
+              "text": "Tohle mi práci dost zkomplikuje. Takto to opravdu nejde.",
+              "feedback": "Kritizujete situaci bez konkrétní žádosti. Druhá strana neví, co má změnit. Zkuste popsat dopad na sebe a jasně požádat o změnu."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "odmitnuti-pozvanky",
+      "title": "Odmítnutí pozvánky",
+      "context": "Kolega vás zve na firemní večírek v pátek večer. Jste unavení a víte, že byste si měli odpočinout. Nechce se vám jít, ale bojíte se, že to bude vypadat nevděčně.",
+      "goal": "Asertivně odmítnout s respektem k sobě i k pozvání.",
+      "steps": [
+        {
+          "stepIndex": 0,
+          "partnerLine": "Přijdeš v pátek na ten večírek? Bude to super!",
+          "options": [
+            {
+              "type": "assertive",
+              "label": "Asertivní reakce",
+              "text": "Díky, že jsi na mě myslel, ale tentokrát nemůžu – potřebuju si odpočinout.",
+              "feedback": "Dobře. Oceňujete pozvání, říkáte jasné ne a krátce vysvětlujete bez zbytečného omlouvání. Hranice jsou jasné a vztah zůstává v pohodě."
+            },
+            {
+              "type": "passive",
+              "label": "Pasivní reakce",
+              "text": "Jé, já bych strašně rád, ale víš, bolí mě hlava a musím ještě volat babičce…",
+              "feedback": "Vymýšlíte výmluvy místo upřímného ne. Když to vyjde najevo, může to poškodit důvěru. Zkuste říct jednoduše, že teď ne a že si potřebujete odpočinout."
+            },
+            {
+              "type": "aggressive",
+              "label": "Agresivní reakce",
+              "text": "Na takové akce nemám čas ani náladu.",
+              "feedback": "Zní to odmítavě a může to působit útočně. Druhá strana neví, že to nemyslíte zle. Zkuste poděkovat za pozvání a říct krátce, proč tentokrát ne."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "otevrene-dvere-vycitka",
+      "title": "Dřív jsi byla ochotnější",
+      "context": "Známá vás žádá o pomoc s velkým stěhováním v sobotu. Když odmítnete, řekne dotčeně: „Dřív jsi byla ochotnější. Vůbec tě nepoznávám.",
+      "goal": "Použít techniku otevřených dveří — souhlasit s částí sdělení, ale zůstat u svého.",
+      "steps": [
+        {
+          "stepIndex": 0,
+          "partnerLine": "Dřív jsi byla ochotnější. Vůbec tě nepoznávám.",
+          "options": [
+            {
+              "type": "assertive",
+              "label": "Asertivní reakce",
+              "text": "Možná máš pravdu, dřív jsem pomáhala víc. Dneska to ale opravdu nevezmu.",
+              "feedback": "Otevřené dveře: souhlasíte s částí, ale rozhodnutí zůstává vaše. Nebojujete ani neustupujete."
+            },
+            {
+              "type": "passive",
+              "label": "Obranná reakce",
+              "text": "Není to pravda, já se snažím pořád stejně, jen teď mám hodně práce.",
+              "feedback": "Obhajujete se a tím přijímáte pravidla hry druhé strany. Otevřete dveře — uznejte část a držte rozhodnutí."
+            },
+            {
+              "type": "aggressive",
+              "label": "Agresivní reakce",
+              "text": "Když ti to nevyhovuje, můžeš si poradit sama.",
+              "feedback": "Protiútok zavře dveře pro dohodu. Otevřené dveře = klidné uznání + držení rozhodnutí."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pauza-pod-tlakem",
+      "title": "Pauza pod emočním tlakem",
+      "context": "Šéf vám během porady řekne před ostatními: „Tohle jsi zase zvoral, jako vždycky.\" Cítíte, jak se vám zvedá hladina a chcete reagovat hned.",
+      "goal": "Rozeznat spouštěč, vyžádat si pauzu, vrátit se klidný/á.",
+      "steps": [
+        {
+          "stepIndex": 0,
+          "partnerLine": "Tohle jsi zase zvoral, jako vždycky.",
+          "options": [
+            {
+              "type": "assertive",
+              "label": "Asertivní reakce",
+              "text": "Slyším, co říkáš. Potřebuju chvíli na rozmyšlenou, ozvu se ti během hodiny.",
+              "feedback": "Pauza je vědomá volba. Necháváte emoci usadit, ne útěk. To je mistrovský tah, ne slabost."
+            },
+            {
+              "type": "passive",
+              "label": "Pasivní reakce",
+              "text": "(Mlčíte, polknete a přejdete to bez komentáře.)",
+              "feedback": "Mlčení nechává hranici nepojmenovanou. Pauza není totéž co potlačení."
+            },
+            {
+              "type": "aggressive",
+              "label": "Agresivní reakce",
+              "text": "Tak si to udělej sám, jestli to umíš líp!",
+              "feedback": "Vybouchnutí stojí na spouštěči, ne na vašem rozhodnutí. Dejte si pauzu, dech, a vraťte se."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pasivni-agresivita-kolegyne",
+      "title": "Někdo má víc času",
+      "context": "V pondělí jste odmítli vzít víkendovou službu navíc. V úterý kolegyně u kávy řekne sarkasticky: „No jasně, někdo má pořád víc času než ostatní.",
+      "goal": "Pojmenovat pasivní agresivitu klidně a otevřít přímý dialog.",
+      "steps": [
+        {
+          "stepIndex": 0,
+          "partnerLine": "No jasně, někdo má pořád víc času než ostatní.",
+          "options": [
+            {
+              "type": "assertive",
+              "label": "Asertivní reakce",
+              "text": "Zní to, jako by tě to mrzelo. Je něco, co bys mi chtěla říct napřímo?",
+              "feedback": "Pojmenováním vytahujete věc na povrch. Pasivní agresivita ztrácí sílu, dialog se otevírá."
+            },
+            {
+              "type": "passive",
+              "label": "Pasivní reakce",
+              "text": "Promiň, no… asi to vzít budu muset.",
+              "feedback": "Omluva za rozhodnutí přijímá vinu, kterou si druhý chtěl, abyste cítila. Pojmenujte, co se děje."
+            },
+            {
+              "type": "aggressive",
+              "label": "Agresivní reakce",
+              "text": "Tobě je teda nějak hodně do mě, viď?",
+              "feedback": "Vracíte ironii a roztáčíte tu hru dál. Pojmenujte klidně, co se děje."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

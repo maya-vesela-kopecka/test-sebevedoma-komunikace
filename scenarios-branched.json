@@ -1,0 +1,1201 @@
+{
+  "typeformUrl": "https://lmc4.typeform.com/to/emV4D50T",
+  "scenarios": [
+    {
+      "id": "menici-se-zadani",
+      "title": "Měnící se zadání",
+      "context": "S kolegou Tomášem připravujete report pro vedení. Od rána vám k němu poslal už několik úprav — „ještě přidej tohle\", „a tamto změň\". Pokaždé předěláváte celý dokument a začínáte mít obavu o termín.",
+      "goal": "Popsat opakované změny věcně, říct, co to s vámi dělá, a navrhnout konkrétní změnu — bez obviňování.",
+      "partnerName": "Tomáš",
+      "startNode": "n1",
+      "nodes": {
+        "n1": {
+          "partnerLine": "Hele, k tomu reportu — ještě tam hoď srovnání s loňským rokem. A ten graf nahoře dej radši dolů, jo?",
+          "phase": 1,
+          "options": [
+            {
+              "id": "n1-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Tome, dneska mi k reportu přišla už čtvrtá úprava a pokaždé to předělávám od začátku. Začínám se bát, že kvůli tomu nestihnu termín. Můžeš mi změny poslat najednou a pak je nechat být?",
+              "feedback": "Popsal/a jste konkrétní situaci, řekl/a jste dopad na sebe a navrhl/a jste řešení — přesně tahle struktura dává Tomášovi šanci to změnit, ne se bránit.",
+              "next": "n2a"
+            },
+            {
+              "id": "n1-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Jasně, hodím to tam.",
+              "feedback": "",
+              "next": "n2b",
+              "recommendedWhy": "Tomáš netuší, kolik práce vám nabaluje; bez popisu situace a dopadu bude posílat další úpravy dál.",
+              "recommendedText": "Tome, dneska mi k reportu přišla už čtvrtá úprava a pokaždé to předělávám od začátku. Začínám se bát, že kvůli tomu nestihnu termín. Můžeš mi změny poslat najednou a pak je nechat být?"
+            },
+            {
+              "id": "n1-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "To si děláš srandu? Pořád to měníš, takhle to nikdy nedodělám.",
+              "feedback": "",
+              "next": "n2c",
+              "recommendedWhy": "„Pořád to měníš\" je nálepka, kterou mozek vyhodnotí jako útok a odpoví obranou; popis konkrétní situace + váš dopad otevírá řešení.",
+              "recommendedText": "Tome, dneska mi k reportu přišla už čtvrtá úprava a pokaždé to předělávám od začátku. Začínám se bát, že kvůli tomu nestihnu termín. Můžeš mi změny poslat najednou a pak je nechat být?"
+            }
+          ]
+        },
+        "n2a": {
+          "partnerLine": "Aha — nedošlo mi, že ti to takhle nabaluju. OK, pošlu ti to v jedné zprávě. Ale tu srovnávačku s loňskem fakt potřebuju dneska, dáš to?",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Dneska stihnu hlavní report, srovnání s loňskem ti pošlu zítra dopoledne. Příště mi pošli všechno hned ráno — pak to naplánuju v klidu.",
+              "feedback": "Držíte reálné očekávání a zároveň navrhujete, jak tomu příště předejít. To je celý smysl třetího kroku — nabídka změny do budoucna.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2a-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Tak jo, zkusím to nějak stihnout všechno dneska.",
+              "feedback": "",
+              "next": "n3b",
+              "recommendedWhy": "Slíbit víc, než zvládnete, vrací vás do stejného stresu, který jste právě pojmenoval/a; reálný termín drží hranici.",
+              "recommendedText": "Dneska stihnu hlavní report, srovnání s loňskem ti pošlu zítra dopoledne. Příště mi pošli všechno hned ráno — pak to naplánuju v klidu."
+            },
+            {
+              "id": "n2a-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "No to teda nestihnu, mám toho i bez tebe dost.",
+              "feedback": "",
+              "next": "n3b",
+              "recommendedWhy": "Konkrétní reálný závazek zní spolupracující; obecné „mám toho dost\" Tomáše nechá hádat, co vlastně dostane.",
+              "recommendedText": "Dneska stihnu hlavní report, srovnání s loňskem ti pošlu zítra dopoledne. Příště mi pošli všechno hned ráno — pak to naplánuju v klidu."
+            }
+          ]
+        },
+        "n2b": {
+          "partnerLine": "Super. A když už v tom jedeš — přepiš ještě ten úvod, ať to zní víc pro vedení. Díky!",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Počkej, Tome — tohle je dneska už pátá změna a já kvůli tomu nestíhám. Pošli mi zbytek úprav najednou, ať to nemusím pořád předělávat.",
+              "feedback": "Dobře, že jste to zastavil/a i takhle uprostřed — popis situace a dopadu funguje v kterémkoli kroku, nejen na začátku.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Dobře, přepíšu i úvod.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Každé tiché přikývnutí potvrzuje Tomášovi, že přihazovat může donekonečna; situace se zítra zopakuje.",
+              "recommendedText": "Počkej, Tome — tohle je dneska už pátá změna a já kvůli tomu nestíhám. Pošli mi zbytek úprav najednou, ať to nemusím pořád předělávat."
+            },
+            {
+              "id": "n2b-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Hele, takhle už fakt ne. Rozmysli si jednou, co chceš, a napiš mi to.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Rozkaz „rozmysli si to\" Tomáše zatlačí do kouta; popis dopadu na vás vede k dohodě, ne k mlčení nebo hádce.",
+              "recommendedText": "Počkej, Tome — tohle je dneska už pátá změna a já kvůli tomu nestíhám. Pošli mi zbytek úprav najednou, ať to nemusím pořád předělávat."
+            }
+          ]
+        },
+        "n2c": {
+          "partnerLine": "No dovol — já ti dávám zpětnou vazbu k reportu, to je snad normální, ne?",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Připomínky jsou v pohodě. Jde mi o to, že když chodí po jedné celý den, předělávám pokaždé všechno. Můžeš mi je dát najednou?",
+              "feedback": "Oddělil/a jste věc (připomínky jsou OK) od dopadu (přicházejí po částech). To Tomáše uklidní a vrátí rozhovor k řešení.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2c-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No jo, promiň, máš pravdu, nech to být.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Couvnutí problém nevyřeší, jen ho schová; zítra budete předělávat zase.",
+              "recommendedText": "Připomínky jsou v pohodě. Jde mi o to, že když chodí po jedné celý den, předělávám pokaždé všechno. Můžeš mi je dát najednou?"
+            },
+            {
+              "id": "n2c-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Zpětná vazba? To je furt dokola něco jiného, ne zpětná vazba.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Hádka o tom, co je „správná\" zpětná vazba, vás odvede od jádra; držte se popisu konkrétní situace a dopadu.",
+              "recommendedText": "Připomínky jsou v pohodě. Jde mi o to, že když chodí po jedné celý den, předělávám pokaždé všechno. Můžeš mi je dát najednou?"
+            }
+          ]
+        },
+        "n3a": {
+          "partnerLine": "Dobrý, zítra dopoledne mi to stačí. A díky, žes to řekl/a — fakt jsem netušil, kolik toho přidávám.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Díky za pochopení. Příště to dáme rovnou celé ráno — ať to zvládneme oba v klidu.",
+              "feedback": "Uzavřel/a jste dohodou do budoucna, ne jen pro dnešek. Přesně tak tahle technika buduje společnou cestu.",
+              "next": "end_good"
+            }
+          ]
+        },
+        "n3b": {
+          "partnerLine": "Tak já počkám, co stihneš. Snad to do večera bude celé, jo?",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Do večera bude hlavní report. Srovnání dodám ráno — to je reálné, ať ti to neslíbím a pak nestihnu.",
+              "feedback": "Opravil/a jste nejasnost dřív, než se z ní stal problém. Reálný závazek je lepší než vstřícný slib, který nedržíte.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Jo, pokusím se to stihnout celé.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Mlhavý slib „pokusím se\" vás zavazuje k nereálnému a stres se vrací.",
+              "recommendedText": "Do večera bude hlavní report. Srovnání dodám ráno — to je reálné, ať ti to neslíbím a pak nestihnu."
+            }
+          ]
+        },
+        "n3c": {
+          "partnerLine": "Tak jo, no. Co teda chceš, abych dělal?",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Stačí, když mi zbylé úpravy pošleš v jedné zprávě. Pak to dodělám v jednom kuse a pošlu ti to.",
+              "feedback": "Stáhl/a jste napětí zpět k jednoduchému návrhu. I po ostřejší výměně funguje konkrétní řešení líp než další výčitky.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3c-b",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Hlavně mi do toho přestaň každou chvíli kecat.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Poslední útok smaže i dobře načatou hranici; konkrétní návrh udrží spolupráci.",
+              "recommendedText": "Stačí, když mi zbylé úpravy pošleš v jedné zprávě. Pak to dodělám v jednom kuse a pošlu ti to."
+            }
+          ]
+        }
+      },
+      "endings": {
+        "end_good": {
+          "summary": "Popsal/a jste situaci i dopad a domluvil/a jste reálné očekávání. Tomáš ví, co příště změnit.",
+          "recommendMicrokurz": false
+        },
+        "end_ok": {
+          "summary": "Rozhovor se zklidnil, ale hranice zůstala trochu měkká — příště může tlak na úpravy přijít znovu.",
+          "recommendMicrokurz": true,
+          "microkurz": "Domluvte se, reagujte asertivně",
+          "lecturer": "Denisa Dědičová"
+        },
+        "end_hard": {
+          "summary": "Změny zadání budou nejspíš chodit dál. Příště zkuste hned popsat situaci, dopad a navrhnout, ať vám je pošle najednou.",
+          "recommendMicrokurz": true,
+          "microkurz": "Domluvte se, reagujte asertivně",
+          "lecturer": "Denisa Dědičová"
+        }
+      },
+      "defaultMicrokurz": {
+        "title": "Domluvte se, reagujte asertivně",
+        "lecturer": "Denisa Dědičová"
+      }
+    },
+    {
+      "id": "cizi-prezentace",
+      "title": "Cizí prezentace na poradě",
+      "context": "Kolega Petr za vámi přijde den před týmovou poradou. Chce, abyste za něj odprezentoval/a jeho část — prý mu to jde líp. Jednou jste už řekl/a ne, ale on to zkouší dál.",
+      "goal": "Klidně a opakovaně držet stanovisko, krátce a bez výmluv (výmluva otevírá prostor k vyjednávání).",
+      "partnerName": "Petr",
+      "startNode": "n1",
+      "nodes": {
+        "n1": {
+          "partnerLine": "Hele, ty tu moji část zítra odprezentuješ líp než já, fakt. Vezmeš to za mě, jo?",
+          "phase": 1,
+          "options": [
+            {
+              "id": "n1-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Chápu, že do toho nechceš jít, ale tvoji část si odprezentuješ ty.",
+              "feedback": "Krátké, klidné, jasné stanovisko bez vysvětlování — přesně začátek gramofonu.",
+              "next": "n2a"
+            },
+            {
+              "id": "n1-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No… tak já nevím, možná.",
+              "feedback": "",
+              "next": "n2b",
+              "recommendedWhy": "„Možná\" zní jako pootevřená branka a Petr do ní hned vejde; jasné stanovisko nedává kam pokračovat.",
+              "recommendedText": "Chápu, že do toho nechceš jít, ale tvoji část si odprezentuješ ty."
+            },
+            {
+              "id": "n1-c",
+              "type": "excuse",
+              "optimal": false,
+              "text": "To nestihnu, mám toho zítra fakt moc a ještě dvě schůzky.",
+              "feedback": "",
+              "next": "n2c",
+              "recommendedWhy": "Výmluva otevírá vyjednávání — Petr nabídne, že schůzky přeložíte. Krátké stanovisko bez důvodů nemá kam pokračovat.",
+              "recommendedText": "Chápu, že do toho nechceš jít, ale tvoji část si odprezentuješ ty."
+            }
+          ]
+        },
+        "n2a": {
+          "partnerLine": "No tak jo, ale ty jsi v tom prostě dobrý/á. Mně se klepe hlas, když mluvím před celým týmem. Aspoň ten úvod, ne?",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Věřím, že to zvládneš. Tvoji část ale prezentuješ ty — i ten úvod.",
+              "feedback": "Stejné stanovisko, jiná slova, pořád klidně. Tak gramofon vydrží tlak.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2a-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No úvod… tak ten bych snad vzít mohl/a.",
+              "feedback": "",
+              "next": "n3b",
+              "recommendedWhy": "Ústupek o kousek je signál, že tlak funguje — Petr přitlačí na zbytek.",
+              "recommendedText": "Věřím, že to zvládneš. Tvoji část ale prezentuješ ty — i ten úvod."
+            },
+            {
+              "id": "n2a-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Ježiš, ty jseš ale otravnej, už jsem řekl/a ne!",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Síla gramofonu je v klidu; jakmile zvýšíte hlas, z držení hranice se stane hádka.",
+              "recommendedText": "Věřím, že to zvládneš. Tvoji část ale prezentuješ ty — i ten úvod."
+            }
+          ]
+        },
+        "n2b": {
+          "partnerLine": "Super, já věděl, že se na tebe můžu spolehnout. Pošlu ti slidy večer, jo?",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Počkej — neřekl/a jsem ano. Tvoji část si odprezentuješ ty.",
+              "feedback": "Dobře, že jste to zastavil/a hned. Petr si z „možná\" udělal „ano\"; krátká oprava vrací hranici.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No… tak jo, pošli.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Tiché převzetí potvrdí, že stačí trochu zatlačit; příště to zkusí znovu.",
+              "recommendedText": "Počkej — neřekl/a jsem ano. Tvoji část si odprezentuješ ty."
+            },
+            {
+              "id": "n2b-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Hele, já nic neslíbil/a, tak mi to nepodsouvej!",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Obvinění z podsouvání rozhovor zostří; klidné zopakování stanoviska stačí.",
+              "recommendedText": "Počkej — neřekl/a jsem ano. Tvoji část si odprezentuješ ty."
+            }
+          ]
+        },
+        "n2c": {
+          "partnerLine": "Tak ty dvě schůzky klidně hoď na odpoledne, prezentace je hned ráno. Pohodička, ne?",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Nejde o ty schůzky. Tvoji část si odprezentuješ ty.",
+              "feedback": "Vidíte, jak výmluva otevřela vyjednávání? Návrat ke krátkému stanovisku ho zavře.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2c-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No… když to přehodím, tak teoreticky čas mít budu…",
+              "feedback": "",
+              "next": "n3b",
+              "recommendedWhy": "Jakmile řešíte, jestli „čas je\", už vyjednáváte o tom, kdy ano — ne jestli.",
+              "recommendedText": "Nejde o ty schůzky. Tvoji část si odprezentuješ ty."
+            },
+            {
+              "id": "n2c-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Co mi pořád organizuješ den? Do toho ti nic není.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Protiútok eskaluje; klidné stanovisko bez důvodů Petrovi nedá za co tahat.",
+              "recommendedText": "Nejde o ty schůzky. Tvoji část si odprezentuješ ty."
+            }
+          ]
+        },
+        "n3a": {
+          "partnerLine": "No dobře… tak mi aspoň pomoz to v neděli večer nacvičit? Půl hodiny.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Ráno před poradou ti deset minut nacvičit rád/a pomůžu. Prezentovat ale budeš ty.",
+              "feedback": "Tady gramofon povolil tam, kde to dává smysl (krátká pomoc), ale hranice — kdo prezentuje — drží.",
+              "next": "end_good"
+            },
+            {
+              "id": "n3a-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No půl hodiny… tak jo, a uvidíme zítra.",
+              "feedback": "",
+              "next": "end_ok",
+              "recommendedWhy": "„Uvidíme zítra\" znovu otevírá dveře; držte jasně, co děláte a co ne.",
+              "recommendedText": "Ráno před poradou ti deset minut nacvičit rád/a pomůžu. Prezentovat ale budeš ty."
+            },
+            {
+              "id": "n3a-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Už ať je klid, pořád dokola to samé!",
+              "feedback": "",
+              "next": "end_ok",
+              "recommendedWhy": "Výbuch na konci shodí klidně držený postoj; gramofon vyhrává tichem, ne křikem.",
+              "recommendedText": "Ráno před poradou ti deset minut nacvičit rád/a pomůžu. Prezentovat ale budeš ty."
+            }
+          ]
+        },
+        "n3b": {
+          "partnerLine": "Tak fajn, vezmeš úvod a první dva slidy. Zbytek dám já. Platí?",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Ne. Prezentuješ celou svou část ty — od úvodu po závěr.",
+              "feedback": "Vrátit se k jasnému ne jde i po několika ústupcích. Líp pozdě než přijít zítra o svůj čas.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No tak úvod a dva slidy… tak jo.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Dohadování o tom, kolik slidů vezmete, je prohraný gramofon — hranice se rozpustila po kouskách.",
+              "recommendedText": "Ne. Prezentuješ celou svou část ty — od úvodu po závěr."
+            }
+          ]
+        },
+        "n3c": {
+          "partnerLine": "No nemusíš na mě hned takhle. Já se jen ptal.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Promiň, nechtěl/a jsem se utrhnout. Pořád ale platí — tvoji část prezentuješ ty.",
+              "feedback": "Vrátit se ke klidu a zopakovat stanovisko zachrání i vyhrocenou výměnu.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3c-b",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "No tak ses ptal popáté, co čekáš.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Přiživovat hádku vás odvádí od hranice; krátký smír + zopakování ne funguje líp.",
+              "recommendedText": "Promiň, nechtěl/a jsem se utrhnout. Pořád ale platí — tvoji část prezentuješ ty."
+            }
+          ]
+        }
+      },
+      "endings": {
+        "end_good": {
+          "summary": "Udržel/a jste hranici klidně a beze změny, i když Petr tlačil několikrát. Přesně tak funguje gramofon.",
+          "recommendMicrokurz": false
+        },
+        "end_ok": {
+          "summary": "Hranici jste nakonec udržel/a, ale stálo to víc sil — pár ústupků nebo zvýšený hlas tlak protáhly.",
+          "recommendMicrokurz": true,
+          "microkurz": "Udržte si hranice bez hádek a křiku",
+          "lecturer": "Denisa Dědičová"
+        },
+        "end_hard": {
+          "summary": "Skončil/a jste s prací, kterou jste dělat nechtěl/a. Příště zkuste krátké stanovisko bez výmluv a klidně ho opakujte.",
+          "recommendMicrokurz": true,
+          "microkurz": "Udržte si hranice bez hádek a křiku",
+          "lecturer": "Denisa Dědičová"
+        }
+      },
+      "defaultMicrokurz": {
+        "title": "Udržte si hranice bez hádek a křiku",
+        "lecturer": "Denisa Dědičová"
+      }
+    },
+    {
+      "id": "organizace-akce",
+      "title": "Organizace firemní akce",
+      "context": "Kolegyně Lucie organizuje každý rok týmový večírek. Letos chce předat „štafetu\" vám. Je to dobrovolná věc nad rámec práce a vy na to teď nemáte prostor. Odmítnete — a Lucie to vezme jako zradu.",
+      "goal": "Jasně odmítnout dobrovolnou žádost bez omlouvání se za rozhodnutí; při výčitce použít otevřené dveře — souhlas s částí + držet rozhodnutí.",
+      "partnerName": "Lucie",
+      "startNode": "n1",
+      "nodes": {
+        "n1": {
+          "partnerLine": "Letos bys mohl/a ten večírek zorganizovat ty, ne? Já už to táhnu pět let. Vezmeš to?",
+          "phase": 1,
+          "options": [
+            {
+              "id": "n1-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Díky, že myslíš zrovna na mě, ale letos to nevezmu — nemám na to teď prostor.",
+              "feedback": "Jasné ne bez omluvy za samotné rozhodnutí. Poděkování dává najevo, že neodmítáte ji, ale tu žádost.",
+              "next": "n2a"
+            },
+            {
+              "id": "n1-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Ježiš, no… asi bych mohl/a? Uvidím, jak na tom budu.",
+              "feedback": "",
+              "next": "n2b",
+              "recommendedWhy": "„Uvidím\" je couvání, které Lucie uslyší jako skoro ano a počítá s vámi; jasné ne je laskavější než falešná naděje.",
+              "recommendedText": "Díky, že myslíš zrovna na mě, ale letos to nevezmu — nemám na to teď prostor."
+            },
+            {
+              "id": "n1-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Proč zase já? Ať to vezme někdo, kdo nic nedělá.",
+              "feedback": "",
+              "next": "n2c",
+              "recommendedWhy": "Odmítnutí nemusí být útok na kolegy; jasné ne za sebe stačí a nezadělá na konflikt v týmu.",
+              "recommendedText": "Díky, že myslíš zrovna na mě, ale letos to nevezmu — nemám na to teď prostor."
+            }
+          ]
+        },
+        "n2a": {
+          "partnerLine": "Hm. Dřív ses do všeho hrnul/a. Teď máš na tým nějak pořád míň času, co?",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Možná máš pravdu, že dřív jsem se zapojoval/a víc. Teď to ale opravdu nevezmu.",
+              "feedback": "Otevřené dveře — souhlasíte s částí, ale rozhodnutí držíte. Nebojujete a zároveň neustupujete.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2a-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No počkej, to není fér, já se zapojuju pořád, jen teď mám práce nad hlavu.",
+              "feedback": "",
+              "next": "n3b",
+              "recommendedWhy": "Obhajoba přijímá pravidla hry druhé strany a zatahuje vás do dokazování; otevřené dveře vás z té hry vyvedou.",
+              "recommendedText": "Možná máš pravdu, že dřív jsem se zapojoval/a víc. Teď to ale opravdu nevezmu."
+            },
+            {
+              "id": "n2a-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Tak já mám míň času? Aspoň něco odvádím, na rozdíl od jiných.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Protiútok přilévá olej do ohně; souhlas s částí výčitku odzbrojí, aniž byste ustoupil/a.",
+              "recommendedText": "Možná máš pravdu, že dřív jsem se zapojoval/a víc. Teď to ale opravdu nevezmu."
+            }
+          ]
+        },
+        "n2b": {
+          "partnerLine": "Super, tak počítám s tebou! Hodím ti kontakty na podnik a rozpočet, jo?",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Počkej — neřekl/a jsem ano. Letos to opravdu nevezmu.",
+              "feedback": "Oprava hranice, jasně a bez omluv. Z „uvidím\" si Lucie udělala „ano\", tohle to vrací zpět.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No tak jo, hoď to sem, nějak to zvládnu.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Tiché převzetí kvůli pocitu viny je přesně to, čemu se tahle technika vyhýbá; nevezmete úkol jen proto, ať nevypadáte jako sobec.",
+              "recommendedText": "Počkej — neřekl/a jsem ano. Letos to opravdu nevezmu."
+            },
+            {
+              "id": "n2b-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Hele, já neřekl/a ano, tak mě do toho netlač!",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Klidné jasné ne stačí; obvinění z tlačení rozhovor zbytečně zostří.",
+              "recommendedText": "Počkej — neřekl/a jsem ano. Letos to opravdu nevezmu."
+            }
+          ]
+        },
+        "n2c": {
+          "partnerLine": "No nemusíš být hned takhle ostrá, já se jen ptala. Myslela jsem, že jsme tým.",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Tým jsme, máš pravdu. Tuhle věc ale letos nevezmu — nemám na ni prostor.",
+              "feedback": "Souhlas s částí („tým jsme\") + držení rozhodnutí. Otevřené dveře fungují i poté, co první reakce ujela.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2c-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No promiň, máš pravdu… tak jo, něco vymyslím.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Výčitka „myslela jsem, že jsme tým\" má vyvolat vinu; nemusíte ji splácet převzetím úkolu.",
+              "recommendedText": "Tým jsme, máš pravdu. Tuhle věc ale letos nevezmu — nemám na ni prostor."
+            },
+            {
+              "id": "n2c-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Tým? To si vždycky vzpomeneš, když něco potřebuješ.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Sarkasmus výčitku jen vrací; věcný souhlas s částí ji vezme sílu.",
+              "recommendedText": "Tým jsme, máš pravdu. Tuhle věc ale letos nevezmu — nemám na ni prostor."
+            }
+          ]
+        },
+        "n3a": {
+          "partnerLine": "Takže mě v tom necháš úplně samotnou?",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Organizaci letos nevezmu. Ale klidně ti pomůžu vybrat podnik nebo zarezervovat termín — to zvládnu.",
+              "feedback": "Držíte hranici a zároveň nabízíte konkrétní alternativu. Odmítáte žádost, ne člověka.",
+              "next": "end_good"
+            },
+            {
+              "id": "n3a-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No dobře… tak tu organizaci teda vezmu.",
+              "feedback": "",
+              "next": "end_ok",
+              "recommendedWhy": "Věta „necháš mě samotnou\" je poslední zatlačení na vinu; alternativa pomůže, převzetí celého úkolu je ústup pod tlakem.",
+              "recommendedText": "Organizaci letos nevezmu. Ale klidně ti pomůžu vybrat podnik nebo zarezervovat termín — to zvládnu."
+            },
+            {
+              "id": "n3a-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "No tak teda nechám, už mě s tím přestaň otravovat.",
+              "feedback": "",
+              "next": "end_ok",
+              "recommendedWhy": "Hranice je správná, ale tón zavře dveře úplně; nabídka části udrží vztah.",
+              "recommendedText": "Organizaci letos nevezmu. Ale klidně ti pomůžu vybrat podnik nebo zarezervovat termín — to zvládnu."
+            }
+          ]
+        },
+        "n3b": {
+          "partnerLine": "No vidím, máš práce nad hlavu — takže příští rok zase já, co?",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "O příštím roce teď neslibuju nic. Letos to nevezmu — a klidně se domluvíme, jak akce rozdělit napřesrok dopředu.",
+              "feedback": "Nenecháte se zatáhnout do slibu do budoucna jen kvůli vině; držíte dnešek a otevíráte férové řešení.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No tak příští rok teda jo, slibuju.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Slib z pocitu viny je jen odložené ano; otevřené dveře nedávají záruku, kterou nechcete dát.",
+              "recommendedText": "O příštím roce teď neslibuju nic. Letos to nevezmu — a klidně se domluvíme, jak akce rozdělit napřesrok dopředu."
+            }
+          ]
+        },
+        "n3c": {
+          "partnerLine": "Tak nic. Já věděla, že nemá cenu se ptát.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Mrzí mě, jak to vyznělo. Organizaci nevezmu, ale fakt ti rád/a pomůžu s něčím konkrétním — třeba s rezervací.",
+              "feedback": "Smíříte tón, držíte rozhodnutí, nabídnete část. Tři kroky otevřených dveří i po vyostřené výměně.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3c-b",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Tak se neptej, vyřešíš si to sama.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Poslední rýpnutí vztah poškodí víc než samo odmítnutí; nabídka části dveře nechá pootevřené.",
+              "recommendedText": "Mrzí mě, jak to vyznělo. Organizaci nevezmu, ale fakt ti rád/a pomůžu s něčím konkrétním — třeba s rezervací."
+            }
+          ]
+        }
+      },
+      "endings": {
+        "end_good": {
+          "summary": "Odmítl/a jste jasně a bez omluv a na výčitku reagoval/a otevřenými dveřmi — souhlas s částí, ale rozhodnutí drží. Nabídl/a jste i alternativu.",
+          "recommendMicrokurz": false
+        },
+        "end_ok": {
+          "summary": "Rozhodnutí jste nakonec uhájil/a, ale výčitka vás stála kus energie navíc — obhajoba nebo ostřejší tón ji protáhly.",
+          "recommendMicrokurz": true
+        },
+        "end_hard": {
+          "summary": "Skončil/a jste s prací, kterou jste brát nechtěl/a. Příště zkuste jasné ne hned v prvním kroku a na výčitku otevřené dveře.",
+          "recommendMicrokurz": true
+        }
+      },
+      "microkurzByPhase": {
+        "1": {
+          "title": "Nebojte se říkat ne bez výčitek",
+          "lecturer": "Denisa Dědičová"
+        },
+        "2": {
+          "title": "Naučte se odmítat bez konfliktu",
+          "lecturer": "Denisa Dědičová"
+        },
+        "3": {
+          "title": "Naučte se odmítat bez konfliktu",
+          "lecturer": "Denisa Dědičová"
+        }
+      }
+    },
+    {
+      "id": "skakani-do-reci",
+      "title": "Skákání do řeči na poradách",
+      "context": "Na týmových poradách vám kolega Martin opakovaně skáče do řeči a dokončuje za vás věty. Vaše návrhy pak zaniknou. Po poslední poradě to chcete s ním probrat mezi čtyřma očima.",
+      "goal": "Dát zpětnou vazbu — popsat chování (ne nálepku), říct dopad přes já-sdělení, nabídnout řešení.",
+      "partnerName": "Martin",
+      "startNode": "n1",
+      "nodes": {
+        "n1": {
+          "partnerLine": "Tak co, dobrá porada, ne? Myslím, že jsme to pěkně rozsekli.",
+          "phase": 1,
+          "options": [
+            {
+              "id": "n1-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Chci ti k tomu něco říct. Když na poradě začnu mluvit a ty dokončíš mou myšlenku za mě, ztratím nit a můj návrh často zapadne. Potřebuju ho doříct sám/sama. Můžeme to příště pohlídat?",
+              "feedback": "Popis konkrétního chování (ne „skáčeš mi do řeči pořád\"), já-sdělení (ztrácím nit) a návrh řešení. Přesně tahle struktura zpětné vazby.",
+              "next": "n2a"
+            },
+            {
+              "id": "n1-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Jo, dobrý… mně to přišlo v pohodě.",
+              "feedback": "",
+              "next": "n2b",
+              "recommendedWhy": "Když to spolknete, Martin nemá šanci nic změnit a příště se to zopakuje; zpětná vazba je pozvánka ke změně.",
+              "recommendedText": "Chci ti k tomu něco říct. Když na poradě začnu mluvit a ty dokončíš mou myšlenku za mě, ztratím nit a můj návrh často zapadne. Potřebuju ho doříct sám/sama. Můžeme to příště pohlídat?"
+            },
+            {
+              "id": "n1-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Dobrá? Pořád mi skáčeš do řeči, vůbec mě necháš domluvit.",
+              "feedback": "",
+              "next": "n2c",
+              "recommendedWhy": "„Pořád mi skáčeš do řeči\" je nálepka, kterou mozek vyhodnotí jako útok a odpoví obranou; popis chování + já-sdělení projde líp.",
+              "recommendedText": "Chci ti k tomu něco říct. Když na poradě začnu mluvit a ty dokončíš mou myšlenku za mě, ztratím nit a můj návrh často zapadne. Potřebuju ho doříct sám/sama. Můžeme to příště pohlídat?"
+            }
+          ]
+        },
+        "n2a": {
+          "partnerLine": "Aha. Já si fakt nevšiml, že to dělám. Asi mě prostě nadchne ten nápad a doplním ho. Ale chápu, že tobě to může vadit.",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Nejde jen o to, že mi to vadí — prakticky mi kvůli tomu projde míň návrhů. Stačí mě nechat dokončit a pak klidně doplnit. Zkusíme to tak?",
+              "feedback": "Vrátil/a jste to od „pocitů\" ke konkrétnímu dopadu a zopakoval/a jste řešení. Drží se věci, ne hádky o tom, kdo má pravdu.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2a-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No, vadí, ale chápu, že to neděláš schválně, tak to nech být.",
+              "feedback": "",
+              "next": "n3b",
+              "recommendedWhy": "Když to zlehčíte, dohoda se rozplyne; řešení je potřeba pojmenovat konkrétně, aby platilo.",
+              "recommendedText": "Nejde jen o to, že mi to vadí — prakticky mi kvůli tomu projde míň návrhů. Stačí mě nechat dokončit a pak klidně doplnit. Zkusíme to tak?"
+            },
+            {
+              "id": "n2a-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Subjektivně? Takže problém jsem zase já, jasně.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Ironie vrací rozhovor do obrany; konkrétní dopad a návrh udrží směr k řešení.",
+              "recommendedText": "Nejde jen o to, že mi to vadí — prakticky mi kvůli tomu projde míň návrhů. Stačí mě nechat dokončit a pak klidně doplnit. Zkusíme to tak?"
+            }
+          ]
+        },
+        "n2b": {
+          "partnerLine": "No vidíš, tak to je dobrý. Příště zase něco vymyslíme spolu — my dva to táhneme.",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Ještě k tomu — na poradě mi často dokončuješ věty a můj návrh pak zapadne. Nech mě prosím příště domluvit a pak doplň.",
+              "feedback": "Dobře, že jste to otevřel/a i takhle dodatečně. Líp pozdě a konkrétně než to nechat být.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Jo, jasně, my dva. Tak zatím.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Nevyřčená zpětná vazba nic nezmění; chování se zopakuje na další poradě.",
+              "recommendedText": "Ještě k tomu — na poradě mi často dokončuješ věty a můj návrh pak zapadne. Nech mě prosím příště domluvit a pak doplň."
+            },
+            {
+              "id": "n2b-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "My dva? Spíš ty a já jen přikyvuju, protože mě nenecháš mluvit.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Schovaná výčitka, co najednou vybuchne, zní jako útok; věcný popis chování funguje líp.",
+              "recommendedText": "Ještě k tomu — na poradě mi často dokončuješ věty a můj návrh pak zapadne. Nech mě prosím příště domluvit a pak doplň."
+            }
+          ]
+        },
+        "n2c": {
+          "partnerLine": "No dovol — já se snažím poradu posunout, ne ti brát slovo. Ty teď děláš dusno z ničeho.",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Nechci dělat dusno. Jen konkrétně — dneska jsi dvakrát dořekl můj návrh za mě a vyznělo to jako tvůj. Potřebuju ho doříct sám/sama. Pohlídáme to?",
+              "feedback": "Stáhl/a jste nálepku zpět ke konkrétnímu chování a já-sdělení. Tak se z obrany vrátíte k řešení.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2c-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No promiň, asi to ze mě vyznělo hůř, nech to být.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Omluva a couvnutí problém zamete; konkrétní popis + návrh ho řeší.",
+              "recommendedText": "Nechci dělat dusno. Jen konkrétně — dneska jsi dvakrát dořekl můj návrh za mě a vyznělo to jako tvůj. Potřebuju ho doříct sám/sama. Pohlídáme to?"
+            },
+            {
+              "id": "n2c-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Dusno dělám já? To ty mě válcuješ na každé poradě.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "„Válcuješ mě\" je další nálepka; eskalace problém neřeší. Popište chování a řekněte, co potřebujete.",
+              "recommendedText": "Nechci dělat dusno. Jen konkrétně — dneska jsi dvakrát dořekl můj návrh za mě a vyznělo to jako tvůj. Potřebuju ho doříct sám/sama. Pohlídáme to?"
+            }
+          ]
+        },
+        "n3a": {
+          "partnerLine": "OK, to dává smysl. Příště tě nechám dořeknout a doplním až potom. A klidně mě kopni pod stolem, kdybych zapomněl.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Díky. Beru to — a fakt mě to potěšilo, že to bereš v pohodě. Domluveno.",
+              "feedback": "Uzavřel/a jste konkrétní dohodou a ocenil/a jste jeho ochotu. Zpětná vazba budující důvěru, ne bariéru.",
+              "next": "end_good"
+            }
+          ]
+        },
+        "n3b": {
+          "partnerLine": "Tak jo, budu na to myslet. Snad.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Domluvme se konkrétně: nech mě dokončit návrh a pak ho klidně rozviň. Tak budu vědět, že na to myslíme oba.",
+              "feedback": "Z mlhavého „snad\" jste udělal/a konkrétní dohodu. To je rozdíl mezi stížností a řešením.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No tak snad jo. Uvidíme.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "„Uvidíme\" nechává vše při starém; bez konkrétní dohody se chování nezmění.",
+              "recommendedText": "Domluvme se konkrétně: nech mě dokončit návrh a pak ho klidně rozviň. Tak budu vědět, že na to myslíme oba."
+            }
+          ]
+        },
+        "n3c": {
+          "partnerLine": "Hele, tak takhle se nikam nedostaneme. Co teda chceš?",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Jednoduchou věc — nech mě na poradě dokončit myšlenku a pak ji klidně rozviň. To je všechno.",
+              "feedback": "Stáhl/a jste to k jednomu konkrétnímu požadavku. I po ostřejší výměně řešení funguje líp než další výčitky.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3c-b",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Chci, abys mě konečně přestal válcovat. Tak těžký to není.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Poslední rýpnutí udrží Martina v obraně; jasný konkrétní požadavek vede k dohodě.",
+              "recommendedText": "Jednoduchou věc — nech mě na poradě dokončit myšlenku a pak ji klidně rozviň. To je všechno."
+            }
+          ]
+        }
+      },
+      "endings": {
+        "end_good": {
+          "summary": "Popsal/a jste chování bez nálepky, řekl/a jste dopad i návrh a uzavřel/a jste konkrétní dohodou. Přesně tak zpětná vazba buduje důvěru.",
+          "recommendMicrokurz": false
+        },
+        "end_ok": {
+          "summary": "Dohodu jste nakonec našli, ale stála víc sil — nálepka nebo couvnutí rozhovor zdržely.",
+          "recommendMicrokurz": true,
+          "microkurz": "Naučte se říkat těžké věci tak, aby neublížily",
+          "lecturer": "Denisa Dědičová"
+        },
+        "end_hard": {
+          "summary": "Na další poradě se to nejspíš zopakuje. Příště zkuste popsat konkrétní chování, říct dopad na sebe a navrhnout řešení.",
+          "recommendMicrokurz": true,
+          "microkurz": "Naučte se říkat těžké věci tak, aby neublížily",
+          "lecturer": "Denisa Dědičová"
+        }
+      },
+      "defaultMicrokurz": {
+        "title": "Naučte se říkat těžké věci tak, aby neublížily",
+        "lecturer": "Denisa Dědičová"
+      }
+    },
+    {
+      "id": "narazky-po-pochvale",
+      "title": "Narážky po pochvale",
+      "context": "Na poradě vedoucí pochválil váš projekt a svěřil vám viditelnou zakázku. Od té doby vám kolegyně Klára háže sarkastické narážky. Dnes u kávy zase rýpne.",
+      "goal": "Nezapadnout do stejné hry — pojmenovat, co se děje, zůstat věcný/á, nabídnout přímý rozhovor, nenechat se zahnat do kouta.",
+      "partnerName": "Klára",
+      "startNode": "n1",
+      "nodes": {
+        "n1": {
+          "partnerLine": "No jasně, někdo si tady umí pěkně namastit kapsu u šéfa.",
+          "phase": 1,
+          "options": [
+            {
+              "id": "n1-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Zní to, jako by tě kolem toho projektu něco štvalo. Je něco, co bys mi chtěla říct napřímo?",
+              "feedback": "Pojmenoval/a jste, co se děje, a otevřel/a jste prostor pro přímý rozhovor. Tím se atmosféra často uvolní.",
+              "next": "n2a"
+            },
+            {
+              "id": "n1-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Ale ne, to bych si nikdy… však to vyšlo náhodou.",
+              "feedback": "",
+              "next": "n2b",
+              "recommendedWhy": "Omlouvat se za svůj úspěch krmí pocit viny, který narážka cílí vyvolat; lepší je pasivní agresi pojmenovat.",
+              "recommendedText": "Zní to, jako by tě kolem toho projektu něco štvalo. Je něco, co bys mi chtěla říct napřímo?"
+            },
+            {
+              "id": "n1-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Tobě teda závist nedá spát, viď?",
+              "feedback": "",
+              "next": "n2c",
+              "recommendedWhy": "Vracet ironii znamená hrát stejnou hru; pojmenování „co se děje\" má větší sílu než protiútok.",
+              "recommendedText": "Zní to, jako by tě kolem toho projektu něco štvalo. Je něco, co bys mi chtěla říct napřímo?"
+            }
+          ]
+        },
+        "n2a": {
+          "partnerLine": "No… mně prostě vadí, že velký věci dostáváš pořád ty. Já dřu stejně a nikdo si nevšimne.",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Rozumím, že tě to štve, to chápu. Ten projekt jsem ale dostal/a a odvedl/a ho. Když máš pocit, že tvoje práce není vidět, řekněme to spolu vedoucímu — to ti pomůžu.",
+              "feedback": "Přijal/a jste její emoci, ale neomluvil/a jste se za svůj výsledek a nabídl/a jste konkrétní řešení. Empatie bez ztráty hranice.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2a-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No já vím, máš pravdu, mně to je trapný, příště se třeba přihlásíš ty.",
+              "feedback": "",
+              "next": "n3b",
+              "recommendedWhy": "Vzdát se svého výsledku z pocitu viny nepomůže ani jedné z vás; věcné držení + nabídka řešení ano.",
+              "recommendedText": "Rozumím, že tě to štve, to chápu. Ten projekt jsem ale dostal/a a odvedl/a ho. Když máš pocit, že tvoje práce není vidět, řekněme to spolu vedoucímu — to ti pomůžu."
+            },
+            {
+              "id": "n2a-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Tak to seš měla přihlásit, ne fňukat u kafe.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Útok zavře právě otevřený upřímný rozhovor; věcnost + nabídka ho udrží.",
+              "recommendedText": "Rozumím, že tě to štve, to chápu. Ten projekt jsem ale dostal/a a odvedl/a ho. Když máš pocit, že tvoje práce není vidět, řekněme to spolu vedoucímu — to ti pomůžu."
+            }
+          ]
+        },
+        "n2b": {
+          "partnerLine": "Náhodou? No vidíš, sám/sama říkáš, že sis to nezasloužil/a.",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Tak to jsem řekl/a blbě — náhoda to nebyla, ten projekt jsem dostal/a a udělal/a. Vidím, že tě to štve. Chceš o tom mluvit na rovinu?",
+              "feedback": "Opravil/a jste sebeshazující větu a vrátil/a jste se k pojmenování situace. Nenecháte se zahnat do kouta vlastní omluvou.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No… asi máš tak trochu pravdu, mělo to víc lidí.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Každé další přitakání výčitce ji posiluje; výčitka ztratí sílu, až když na ni přestanete reagovat vinou.",
+              "recommendedText": "Tak to jsem řekl/a blbě — náhoda to nebyla, ten projekt jsem dostal/a a udělal/a. Vidím, že tě to štve. Chceš o tom mluvit na rovinu?"
+            },
+            {
+              "id": "n2b-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Nezasloužil/a? Tak to si fakt nech od cesty.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Výbuch potvrdí, že narážka zabrala; klid a pojmenování situace ji odzbrojí líp.",
+              "recommendedText": "Tak to jsem řekl/a blbě — náhoda to nebyla, ten projekt jsem dostal/a a udělal/a. Vidím, že tě to štve. Chceš o tom mluvit na rovinu?"
+            }
+          ]
+        },
+        "n2c": {
+          "partnerLine": "Závist? Já jen říkám, co vidí celej tým. Ber to, jak chceš.",
+          "phase": 2,
+          "options": [
+            {
+              "id": "n2c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Nechci se hádat. Když máš pocit, že je něco nefér, řekni mi to přímo — narážky u kávy nám oběma nepomůžou.",
+              "feedback": "Pojmenoval/a jste pasivní agresi a nabídl/a jste přímou cestu, aniž byste přitvrdil/a. Tím vystoupíte ze hry.",
+              "next": "n3a"
+            },
+            {
+              "id": "n2c-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "No promiň, já nechtěl/a, ať to nevypadá blbě.",
+              "feedback": "",
+              "next": "n3b",
+              "recommendedWhy": "Omluva za vlastní reakci vás vrací do role viníka; pojmenujte radši, co by pomohlo.",
+              "recommendedText": "Nechci se hádat. Když máš pocit, že je něco nefér, řekni mi to přímo — narážky u kávy nám oběma nepomůžou."
+            },
+            {
+              "id": "n2c-c",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Celej tým? Tak ať si to celej tým řekne do očí, ne ty potají.",
+              "feedback": "",
+              "next": "n3c",
+              "recommendedWhy": "Pokračovat v souboji „kdo za tím stojí\" eskaluje; nabídka přímého rozhovoru vás z toho vyvede.",
+              "recommendedText": "Nechci se hádat. Když máš pocit, že je něco nefér, řekni mi to přímo — narážky u kávy nám oběma nepomůžou."
+            }
+          ]
+        },
+        "n3a": {
+          "partnerLine": "No… asi máš pravdu. Štve mě to a říkám to blbě. Promiň.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3a-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "V pohodě, díky, že jsi to řekla. Když budeš příště mít pocit, že se práce rozděluje nefér, ozvi se mi rovnou — vyřešíme to.",
+              "feedback": "Uzavřel/a jste to přímou dohodou do budoucna, bez vítězů a poražených. Přesně k tomu tahle technika míří.",
+              "next": "end_good"
+            }
+          ]
+        },
+        "n3b": {
+          "partnerLine": "No dobře, no. Nějak to přežiju.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3b-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Mně by se líp pracovalo, kdybys mi narážky neházela přes kafe, ale řekla to napřímo. Platí?",
+              "feedback": "Pojmenoval/a jste, co potřebujete do budoucna, klidně a věcně. Líp než to nechat vyšumět.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3b-b",
+              "type": "passive",
+              "optimal": false,
+              "text": "Tak jo… hlavně ať je klid.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "„Hlavně klid\" znamená, že narážky budou chodit dál; přímá domluva je zastaví.",
+              "recommendedText": "Mně by se líp pracovalo, kdybys mi narážky neházela přes kafe, ale řekla to napřímo. Platí?"
+            }
+          ]
+        },
+        "n3c": {
+          "partnerLine": "Tak nic. Nemá cenu se o tom bavit.",
+          "phase": 3,
+          "options": [
+            {
+              "id": "n3c-a",
+              "type": "assertive",
+              "optimal": true,
+              "text": "Mně cenu má — nechci, abychom na sebe rýpali. Když tě něco štve, radši mi to řekni přímo a vyřešíme to.",
+              "feedback": "Nabídl/a jste přímý rozhovor i poté, co se Klára uzavřela. Tím držíte dveře otevřené bez ustoupení.",
+              "next": "end_ok"
+            },
+            {
+              "id": "n3c-b",
+              "type": "aggressive",
+              "optimal": false,
+              "text": "Tak teda nemá. Tak si trp.",
+              "feedback": "",
+              "next": "end_hard",
+              "recommendedWhy": "Poslední rýpnutí vztah zabetonuje; nabídka přímého rozhovoru ho nechá otevřený.",
+              "recommendedText": "Mně cenu má — nechci, abychom na sebe rýpali. Když tě něco štve, radši mi to řekni přímo a vyřešíme to."
+            }
+          ]
+        }
+      },
+      "endings": {
+        "end_good": {
+          "summary": "Nezapadl/a jste do hry na narážky — pojmenoval/a jste, co se děje, zůstal/a jste věcný/á a nabídl/a jste přímý rozhovor.",
+          "recommendMicrokurz": false
+        },
+        "end_ok": {
+          "summary": "Situaci jste zklidnil/a, ale stálo to víc sil — omluva za úspěch nebo protiútok rozhovor zdržely.",
+          "recommendMicrokurz": true,
+          "microkurz": "Braňte se manipulaci a pasivní agresi",
+          "lecturer": "Denisa Dědičová"
+        },
+        "end_hard": {
+          "summary": "Narážky budou nejspíš chodit dál. Příště zkuste rovnou pojmenovat, co se děje, a nabídnout přímý rozhovor.",
+          "recommendMicrokurz": true,
+          "microkurz": "Braňte se manipulaci a pasivní agresi",
+          "lecturer": "Denisa Dědičová"
+        }
+      },
+      "defaultMicrokurz": {
+        "title": "Braňte se manipulaci a pasivní agresi",
+        "lecturer": "Denisa Dědičová"
+      }
+    }
+  ]
+}

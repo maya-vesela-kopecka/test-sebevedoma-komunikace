@@ -579,3 +579,79 @@ body {
   font-size: 0.9rem;
   color: var(--seduo-muted);
 }
+
+.suboptimal-panel {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  background: #fef7e0;
+  border: 1px solid #fcd34d;
+  color: #78350f;
+}
+
+.suboptimal-title {
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.suboptimal-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+}
+
+.recommended-text {
+  font-style: italic;
+  margin: 0 0 0.75rem;
+  line-height: 1.45;
+}
+
+.recommended-why {
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.ending-summary {
+  background: var(--seduo-card);
+  border: 1px solid var(--seduo-border);
+  border-radius: var(--seduo-radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.microkurz-panel {
+  background: #e0f2ef;
+  border: 1px solid #c5e8df;
+  border-left: 4px solid var(--seduo-green);
+  border-radius: var(--seduo-radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.microkurz-intro {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+.microkurz-item {
+  margin: 0 0 0.75rem;
+}
+
+.microkurz-item:last-child {
+  margin-bottom: 0;
+}
+
+.microkurz-lecturer {
+  font-size: 0.9rem;
+  color: var(--seduo-muted);
+}
+
+.chat-who {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--seduo-muted);
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}

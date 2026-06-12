@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delší konverzace – Sebevědomá komunikace</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <header class="seduo-header">
+    <img src="Logo%20Seduo%20CZ%20bile.png" alt="Seduo CZ" class="seduo-header-logo">
+  </header>
+  <main class="seduo-main">
+    <div class="back-links">
+      <a href="index.html" class="back-link">← Zpět na výběr</a>
+    </div>
+
+    <div id="screen-list">
+      <h2 class="seduo-scenario-title">Delší konverzace – Vyberte scénář</h2>
+      <p class="context-block">Projdete krátký dialog s několika kroky. Po neoptimální volbě uvidíte doporučenou formulaci — rozhovor ale pokračuje dál.</p>
+      <p class="context-block" style="font-weight: 600;">Klikněte na scénář, který chcete procvičit.</p>
+      <div id="scenario-cards"></div>
+    </div>
+
+    <div id="screen-intro" class="hidden">
+      <h2 class="seduo-scenario-title" id="intro-title"></h2>
+      <p class="context-block" id="intro-context"></p>
+      <p class="context-block"><strong>Cíl:</strong> <span id="intro-goal"></span></p>
+      <p class="context-block roleplay-intro-prep">Až budete připraveni, klikněte na Začít a přejdete do situace.</p>
+      <button type="button" class="btn" id="btn-start">Začít</button>
+      <button type="button" class="btn btn-secondary" id="btn-back-list">Zpět na výběr</button>
+    </div>
+
+    <div id="screen-play" class="hidden">
+      <h2 class="seduo-scenario-title" id="play-title"></h2>
+      <p class="context-block" id="play-context"></p>
+      <div class="dialogue-container">
+        <div class="dialogue" id="dialogue"></div>
+        <div id="panel-choice">
+          <div class="choice-label">Jak zareagujete?</div>
+          <div id="step-options" class="roleplay-options"></div>
+        </div>
+        <div id="panel-response" class="hidden">
+          <div id="optimal-feedback" class="feedback hidden"></div>
+          <div id="suboptimal-panel" class="suboptimal-panel hidden">
+            <p class="suboptimal-title">Tato volba nebyla optimální.</p>
+            <p class="suboptimal-label">Doporučená formulace:</p>
+            <p id="recommended-text" class="recommended-text"></p>
+            <p id="recommended-why" class="recommended-why"></p>
+          </div>
+          <button type="button" class="btn" id="btn-continue">Pokračovat v rozhovoru</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-end" class="hidden">
+      <h2 class="seduo-scenario-title" id="end-title"></h2>
+      <div class="ending-summary" id="ending-summary"></div>
+      <div id="microkurz-panel" class="microkurz-panel hidden"></div>
+      <div class="typeform-card">
+        <h2>Máte chvilku navíc?</h2>
+        <p>Pošlete nám zpětnou vazbu k procvičování.</p>
+        <a class="btn-typeform" id="typeform-link" href="#" target="_blank" rel="noopener noreferrer">Vyplnit dotazník</a>
+        <p class="typeform-note">Otevře se v novém okně (Typeform).</p>
+      </div>
+      <div style="margin-top: 1rem;">
+        <button type="button" class="btn btn-secondary" id="btn-retry">Zkusit znovu</button>
+        <button type="button" class="btn btn-secondary" id="btn-other">Vybrat jiný scénář</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let data = { scenarios: [], typeformUrl: 'https://lmc4.typeform.com/to/emV4D50T' };
+    let currentScenario = null;
+    let currentNodeId = null;
+    let dialogueHistory = [];
+    let suboptimalCount = 0;
+    let phaseErrors = {};
+    let pendingNext = null;
+    let lastChoice = null;
+
+    const screens = {
+      list: document.getElementById('screen-list'),
+      intro: document.getElementById('screen-intro'),
+      play: document.getElementById('screen-play'),
+      end: document.getElementById('screen-end')
+    };
+
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.add('hidden'));
+      screens[name].classList.remove('hidden');
+    }
+
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    function renderScenarioList() {
+      const el = document.getElementById('scenario-cards');
+      el.innerHTML = data.scenarios.map(s => `
+        <div class="card card-clickable" data-id="${s.id}">
+          <strong>${escapeHtml(s.title)}</strong>
+          <p style="margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--seduo-muted);">${escapeHtml(s.context.length > 120 ? s.context.slice(0, 120) + '…' : s.context)}</p>
+        </div>
+      `).join('');
+      el.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => selectScenario(card.dataset.id));
+      });
+    }
+
+    function selectScenario(id) {
+      currentScenario = data.scenarios.find(s => s.id === id);
+      if (!currentScenario) return;
+      document.getElementById('intro-title').textContent = currentScenario.title;
+      document.getElementById('intro-context').textContent = currentScenario.context;
+      document.getElementById('intro-goal').textContent = currentScenario.goal;
+      showScreen('intro');
+    }
+
+    function resetSession() {
+      dialogueHistory = [];
+      suboptimalCount = 0;
+      phaseErrors = {};
+      pendingNext = null;
+      lastChoice = null;
+      currentNodeId = currentScenario.startNode;
+    }
+
+    function startScenario() {
+      resetSession();
+      document.getElementById('play-title').textContent = currentScenario.title;
+      document.getElementById('play-context').textContent = currentScenario.context;
+      renderNode();
+      showScreen('play');
+    }
+
+    function renderDialogue() {
+      const partner = currentScenario.partnerName || 'Kolega';
+      let html = '';
+      dialogueHistory.forEach(turn => {
+        html += `<div class="chat-row partner"><div class="chat-avatar">😟</div><div class="chat-bubble"><span class="chat-who">${escapeHtml(partner)}</span>${escapeHtml(turn.partner)}</div></div>`;
+        html += `<div class="chat-row you"><div class="chat-bubble">${escapeHtml(turn.you)}</div><div class="chat-avatar">😊</div></div>`;
+      });
+      const node = currentScenario.nodes[currentNodeId];
+      if (node) {
+        html += `<div class="chat-row partner"><div class="chat-avatar">😟</div><div class="chat-bubble"><span class="chat-who">${escapeHtml(partner)}</span>${escapeHtml(node.partnerLine)}</div></div>`;
+      }
+      document.getElementById('dialogue').innerHTML = html;
+    }
+
+    function renderNode() {
+      const node = currentScenario.nodes[currentNodeId];
+      if (!node) return;
+      renderDialogue();
+      document.getElementById('panel-choice').classList.remove('hidden');
+      document.getElementById('panel-response').classList.add('hidden');
+      const optsEl = document.getElementById('step-options');
+      optsEl.innerHTML = node.options.map((opt, i) => `
+        <button type="button" class="option-btn" data-index="${i}">
+          <span class="opt-num">${i + 1}</span>
+          <span class="opt-text">${escapeHtml(opt.text)}</span>
+        </button>
+      `).join('');
+      optsEl.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', () => onOptionClick(parseInt(btn.dataset.index, 10)));
+      });
+    }
+
+    function onOptionClick(index) {
+      const node = currentScenario.nodes[currentNodeId];
+      const opt = node.options[index];
+      lastChoice = opt;
+      dialogueHistory.push({ partner: node.partnerLine, you: opt.text });
+
+      document.querySelectorAll('#step-options .option-btn').forEach((b, i) => {
+        b.disabled = true;
+        if (i === index) b.classList.add('selected');
+      });
+      renderDialogue();
+
+      if (!opt.optimal) {
+        suboptimalCount++;
+        if (node.phase) phaseErrors[node.phase] = true;
+      }
+
+      document.getElementById('panel-choice').classList.add('hidden');
+      document.getElementById('panel-response').classList.remove('hidden');
+
+      const optimalFb = document.getElementById('optimal-feedback');
+      const subPanel = document.getElementById('suboptimal-panel');
+      if (opt.optimal) {
+        optimalFb.textContent = opt.feedback;
+        optimalFb.className = 'feedback assertive';
+        optimalFb.classList.remove('hidden');
+        subPanel.classList.add('hidden');
+      } else {
+        optimalFb.classList.add('hidden');
+        subPanel.classList.remove('hidden');
+        document.getElementById('recommended-text').textContent = opt.recommendedText || '';
+        document.getElementById('recommended-why').textContent = opt.recommendedWhy || '';
+      }
+
+      pendingNext = opt.next;
+    }
+
+    function continueDialogue() {
+      if (!pendingNext) return;
+      if (pendingNext.startsWith('end_')) {
+        showEnding(pendingNext);
+        return;
+      }
+      currentNodeId = pendingNext;
+      pendingNext = null;
+      lastChoice = null;
+      renderNode();
+    }
+
+    function getMicrokurzRecommendations() {
+      if (suboptimalCount === 0) return [];
+      if (currentScenario.microkurzByPhase) {
+        const recs = [];
+        if (phaseErrors[1]) recs.push(currentScenario.microkurzByPhase['1']);
+        if (phaseErrors[2] || phaseErrors[3]) recs.push(currentScenario.microkurzByPhase['2']);
+        const seen = new Set();
+        return recs.filter(r => {
+          const k = r.title;
+          if (seen.has(k)) return false;
+          seen.add(k);
+          return true;
+        });
+      }
+      if (currentScenario.defaultMicrokurz) return [currentScenario.defaultMicrokurz];
+      return [];
+    }
+
+    function showEnding(endId) {
+      const ending = currentScenario.endings[endId];
+      document.getElementById('end-title').textContent = currentScenario.title;
+      document.getElementById('ending-summary').textContent = ending ? ending.summary : '';
+      const mkPanel = document.getElementById('microkurz-panel');
+      const recs = (ending && ending.recommendMicrokurz) ? getMicrokurzRecommendations() : [];
+      if (recs.length) {
+        mkPanel.innerHTML = `
+          <p class="microkurz-intro">Doporučujeme projít si microkurz:</p>
+          ${recs.map(r => `<p class="microkurz-item"><strong>${escapeHtml(r.title)}</strong><br><span class="microkurz-lecturer">Lektorka: ${escapeHtml(r.lecturer)}</span></p>`).join('')}
+        `;
+        mkPanel.classList.remove('hidden');
+      } else {
+        mkPanel.classList.add('hidden');
+        mkPanel.innerHTML = '';
+      }
+      document.getElementById('typeform-link').href = data.typeformUrl;
+      showScreen('end');
+    }
+
+    document.getElementById('btn-start').addEventListener('click', startScenario);
+    document.getElementById('btn-back-list').addEventListener('click', () => showScreen('list'));
+    document.getElementById('btn-continue').addEventListener('click', continueDialogue);
+    document.getElementById('btn-retry').addEventListener('click', startScenario);
+    document.getElementById('btn-other').addEventListener('click', () => showScreen('list'));
+
+    fetch('scenarios-branched.json')
+      .then(r => r.json())
+      .then(json => {
+        data = json;
+        renderScenarioList();
+      })
+      .catch(() => {
+        document.getElementById('scenario-cards').innerHTML = '<p class="context-block">Nepodařilo se načíst scénáře. Obnovte stránku.</p>';
+      });
+  </script>
+</body>
+</html>
